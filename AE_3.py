@@ -157,7 +157,7 @@ if TRAIN:
             print('Start save model !')
             
             torch.save(model.state_dict(), SAVE_MODEL_PATH)
-            print('save model complete with loss : %.3f' %(train_loss))
+            print('save model weights complete with loss : %.3f' %(train_loss))
     
 if TEST:
     print('Start test :')
