@@ -112,7 +112,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
 if TRAIN:
     # number of epochs to train the model
-    n_epochs = 10
+    n_epochs = 5
     _lowest_loss = 100.0
     import os
     SAVE_MODEL_DIR = r"C:\GitHub_Code\AE\autoencoder_pytorch\model"
@@ -156,21 +156,26 @@ if TRAIN:
             _lowest_loss = train_loss
             print('Start save model !')
             
-            torch.save(outputs, SAVE_MODEL_PATH)
+            torch.save(model.state_dict(), SAVE_MODEL_PATH)
             print('save model complete with loss : %.3f' %(train_loss))
     
 if TEST:
+    print('Start test :')
     modelPath = r"C:\GitHub_Code\AE\autoencoder_pytorch\model\AE_3_best.pt"
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     #device = torch.device('cpu')
     #model.eval()
-    model = torch.load(modelPath).to(device)
+    model = ConvAutoencoder()
+    #model = torch.load(modelPath).to(device)
+    model.load_state_dict(torch.load(modelPath))
+    print('load model weight from {} success'.format(modelPath))
     # obtain one batch of test images
     dataiter = iter(test_loader)
     images, labels = dataiter.next()
-    
+    print('Start AE :')
     # get sample outputs
     output = model(images)
+    print('finish AE')
     # prep images for display
     images = images.numpy()
     
