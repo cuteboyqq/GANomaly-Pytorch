@@ -18,7 +18,7 @@ from torchvision import datasets
 import torchvision.transforms as transforms
 import torchvision
 import torch.nn.functional as F
-TRAIN = False
+TRAIN = True
 TEST = True
 
 # convert data to torch.FloatTensor
@@ -31,6 +31,8 @@ train_data = datasets.MNIST(root='~/.pytorch/MNIST_data/', train=True,
 test_data = datasets.MNIST(root='~/.pytorch/MNIST_data/', train=False,
                                   download=True, transform=transform)
 '''
+
+
 IMAGE_SIZE = 28
 TRAIN_DATA_DIR = r"C:\GitHub_Code\cuteboyqq\repVGG\datasets\8\roi"
 VAL_DATA_DIR = TRAIN_DATA_DIR
@@ -133,9 +135,10 @@ class ConvAutoencoder(nn.Module):
         x = F.sigmoid(self.t_conv2(x))
                 
         return x
-
+#  use gpu if available
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # initialize the NN
-model = ConvAutoencoder()
+model = ConvAutoencoder().to(device)
 print(model)
 
 # specify loss function
@@ -161,10 +164,11 @@ if TRAIN:
         ###################
         # train the model #
         ###################
-        for data in train_loader:
+        for images, _  in train_loader:
             # _ stands in for labels, here
             # no need to flatten images
-            images, _ = data
+            images = images.to(device)
+            #images, _ = data
             # clear the gradients of all optimized variables
             optimizer.zero_grad()
             # forward pass: compute predicted outputs by passing inputs to the model
