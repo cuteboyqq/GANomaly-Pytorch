@@ -18,7 +18,7 @@ from torchvision import datasets
 import torchvision.transforms as transforms
 import torchvision
 import torch.nn.functional as F
-TRAIN = True
+TRAIN = False
 TEST = True
 
 # convert data to torch.FloatTensor
@@ -146,7 +146,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
 if TRAIN:
     # number of epochs to train the model
-    n_epochs = 10
+    n_epochs = 20
     _lowest_loss = 100.0
     import os
     SAVE_MODEL_DIR = r"C:\GitHub_Code\AE\autoencoder_pytorch\model"
@@ -224,17 +224,17 @@ if TEST:
     
     # input images on top row, reconstructions on bottom
     for images, row in zip([images, output], axes):
-        print(len(images))
-        print(len(row))
+        #print(len(images))
+        #print(len(row))
         for img, ax in zip(images, row):
-            print(img)
-            print(np.shape(img))
-            print(np.shape(np.squeeze(img)))
+            #print(img)
+            #print(np.shape(img))
+            #print(np.shape(np.squeeze(img)))
             #img = img[-1::]
-            img = img[-1::]
-            print(np.shape(img))
-            print(np.shape(np.squeeze(img)))
-            ax.imshow(np.squeeze(img), cmap='gray')
-            #ax.imshow(img)
+            img = img[:,:,::-1].transpose((2,1,0))
+            #print(np.shape(img))
+            #print(np.shape(np.squeeze(img)))
+            #ax.imshow(np.squeeze(img), cmap='gray')
+            ax.imshow(img)
             ax.get_xaxis().set_visible(False)
             ax.get_yaxis().set_visible(False)
