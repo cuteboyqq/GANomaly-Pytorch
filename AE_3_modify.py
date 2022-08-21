@@ -18,7 +18,7 @@ from torchvision import datasets
 import torchvision.transforms as transforms
 import torchvision
 import torch.nn.functional as F
-TRAIN = True
+TRAIN = False
 TEST = True
 
 # convert data to torch.FloatTensor
@@ -67,7 +67,7 @@ img_test_data = torchvision.datasets.ImageFolder(VAL_DATA_DIR,
 print('img_test_data length : {}'.format(len(img_test_data)))
 
 BATCH_SIZE_VAL = BATCH_SIZE
-test_loader = torch.utils.data.DataLoader(img_test_data, batch_size=BATCH_SIZE_VAL,shuffle=False,drop_last=False)
+test_loader = torch.utils.data.DataLoader(img_test_data, batch_size=BATCH_SIZE_VAL,shuffle=True,drop_last=False)
 print('test_loader length : {}'.format(len(test_loader)))
 
 # Create training and test dataloaders
@@ -198,6 +198,8 @@ if TRAIN:
             print('save model weights complete with loss : %.3f' %(train_loss))
     
 if TEST:
+    SHOW_MAX_NUM = 10
+    show_num = 0
     print('Start test :')
     modelPath = r"C:\GitHub_Code\AE\autoencoder_pytorch\model\AE_3_best.pt"
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -209,36 +211,38 @@ if TEST:
     print('load model weight from {} success'.format(modelPath))
     # obtain one batch of test images
     dataiter = iter(test_loader)
-    images, labels = dataiter.next()
-    print('Start AE :')
-    # get sample outputs
-    output = model(images)
-    print('finish AE')
-    # prep images for display
-    images = images.numpy()
-    #print('images : \n {}'.format(images))
-    # output is resized into a batch of iages
-    output = output.view(BATCH_SIZE, 3, 28, 28)
-    #output = output.view(BATCH_SIZE, 3, 28, 28)
-    # use detach when it's an output that requires_grad
-    output = output.detach().numpy()
-    
-    # plot the first ten input images and then reconstructed images
-    fig, axes = plt.subplots(nrows=2, ncols=10, sharex=True, sharey=True, figsize=(25,4))
-    
-    # input images on top row, reconstructions on bottom
-    for images, row in zip([images, output], axes):
-        #print(len(images))
-        #print(len(row))
-        for img, ax in zip(images, row):
-            #print(img)
-            #print(np.shape(img))
-            #print(np.shape(np.squeeze(img)))
-            #img = img[-1::]
-            img = img[:,:,::-1].transpose((2,1,0))
-            #print(np.shape(img))
-            #print(np.shape(np.squeeze(img)))
-            #ax.imshow(np.squeeze(img), cmap='gray')
-            ax.imshow(img)
-            ax.get_xaxis().set_visible(False)
-            ax.get_yaxis().set_visible(False)
+    while(show_num < SHOW_MAX_NUM):
+        images, labels = dataiter.next()
+        print('Start AE :')
+        # get sample outputs
+        output = model(images)
+        print('finish AE')
+        # prep images for display
+        images = images.numpy()
+        #print('images : \n {}'.format(images))
+        # output is resized into a batch of iages
+        output = output.view(BATCH_SIZE, 3, 28, 28)
+        #output = output.view(BATCH_SIZE, 3, 28, 28)
+        # use detach when it's an output that requires_grad
+        output = output.detach().numpy()
+        
+        # plot the first ten input images and then reconstructed images
+        fig, axes = plt.subplots(nrows=2, ncols=15, sharex=True, sharey=True, figsize=(25,4))
+        
+        # input images on top row, reconstructions on bottom
+        for images, row in zip([images, output], axes):
+            #print(len(images))
+            #print(len(row))
+            for img, ax in zip(images, row):
+                #print(img)
+                #print(np.shape(img))
+                #print(np.shape(np.squeeze(img)))
+                #img = img[-1::]
+                img = img[:,:,::-1].transpose((2,1,0))
+                #print(np.shape(img))
+                #print(np.shape(np.squeeze(img)))
+                #ax.imshow(np.squeeze(img), cmap='gray')
+                ax.imshow(img)
+                ax.get_xaxis().set_visible(False)
+                ax.get_yaxis().set_visible(False)
+        show_num+=1
