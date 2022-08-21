@@ -18,7 +18,7 @@ from torchvision import datasets
 import torchvision.transforms as transforms
 import torchvision
 import torch.nn.functional as F
-TRAIN = False
+TRAIN = True
 TEST = True
 
 # convert data to torch.FloatTensor
@@ -146,7 +146,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
 if TRAIN:
     # number of epochs to train the model
-    n_epochs = 5
+    n_epochs = 10
     _lowest_loss = 100.0
     import os
     SAVE_MODEL_DIR = r"C:\GitHub_Code\AE\autoencoder_pytorch\model"
@@ -212,9 +212,10 @@ if TEST:
     print('finish AE')
     # prep images for display
     images = images.numpy()
-    
+    #print('images : \n {}'.format(images))
     # output is resized into a batch of iages
     output = output.view(BATCH_SIZE, 3, 28, 28)
+    #output = output.view(BATCH_SIZE, 3, 28, 28)
     # use detach when it's an output that requires_grad
     output = output.detach().numpy()
     
@@ -223,7 +224,17 @@ if TEST:
     
     # input images on top row, reconstructions on bottom
     for images, row in zip([images, output], axes):
+        print(len(images))
+        print(len(row))
         for img, ax in zip(images, row):
+            print(img)
+            print(np.shape(img))
+            print(np.shape(np.squeeze(img)))
+            #img = img[-1::]
+            img = img[-1::]
+            print(np.shape(img))
+            print(np.shape(np.squeeze(img)))
             ax.imshow(np.squeeze(img), cmap='gray')
+            #ax.imshow(img)
             ax.get_xaxis().set_visible(False)
             ax.get_yaxis().set_visible(False)
