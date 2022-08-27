@@ -23,9 +23,12 @@ dataset :factory line , top: input images, bottom: reconstruct images
 dataset :factory noline , top: input images, bottom: reconstruct images
 ![image](https://user-images.githubusercontent.com/58428559/187033196-c5d015a6-b71d-4bfd-a38a-cdae8e889455.png)
 
-
+# Train
 ```
-git status
-git add
-git commit
+python train.py
+```
+
+# Test
+```
+python test.py
 ```
