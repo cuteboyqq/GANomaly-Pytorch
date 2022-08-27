@@ -13,18 +13,30 @@ No Discriminator model
 
 ![image](https://user-images.githubusercontent.com/58428559/187032363-003a6ef7-82b6-4829-a72f-000c9e4a1d86.png)
 
-# Train factory line dataset
+# Train normal dataset tree
 
 ```
-\---2022-08-26
-    \---f_384_2min
-        +---crops
-        |   +---blue_line
-        |   +---gray_line
-        |   \---Green_line
+─2022-08-26
+    │  
+    │
+    │  
+    └─f_384_2min
+        ├─crops
+        │  ├─blue_line
+        │  │      ori_video_ver22766.jpg
+        │  │      ori_video_ver22767.jpg
+        │  │      ori_video_ver22768.jpg
+        │  │      ori_video_ver22769.jpg
+        │  │      ori_video_ver22770.jpg
+        │  │      ori_video_ver22771.jpg
+        │  │      ori_video_ver22772.jpg
+        │  │      ori_video_ver22773.jpg
+        │  │      ori_video_ver22774.jpg
+        │  │      ori_video_ver22775.jpg
+        ...
 
 ```
-# Test noline (defect) dataset
+# Test defect dataset tree
 ```
 \---2022-08-26
     \---f_384_2min  
