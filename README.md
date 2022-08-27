@@ -13,7 +13,7 @@ No Discriminator model
 
 ![image](https://user-images.githubusercontent.com/58428559/187032363-003a6ef7-82b6-4829-a72f-000c9e4a1d86.png)
 
-# dataset
+# Train factory line dataset
 
 ```
 \---2022-08-26
@@ -22,18 +22,15 @@ No Discriminator model
         |   +---blue_line
         |   +---gray_line
         |   \---Green_line
-        +---crops_left
-        |   +---blue_line
-        |   +---gray_line
-        |   \---Green_line
-        +---crops_ori
-        |   +---line
-        |   +---noline
-        |   \---others
+
+```
+# Test noline (defect) dataset
+```
+\---2022-08-26
+    \---f_384_2min  
         \---defeat
             +---noline
             \---others
-
 ```
 
 # Train
