@@ -11,9 +11,27 @@ import torchvision
 import torch.nn as nn
 from network import *
 
-def test():
+
+def main():
+    IMAGE_SIZE_W, IMAGE_SIZE_H = 32,32
+    TRAIN_DATA_DIR = "/home/ali/YOLOV5/runs/detect/f_384_2min/crops"
+    VAL_DATA_DIR = TRAIN_DATA_DIR
+    DEFEAT_DATA_DIR = "/home/ali/YOLOV5/runs/detect/f_384_2min/defeat"
+    size = (IMAGE_SIZE_H,IMAGE_SIZE_W)
+    
+    test(IMAGE_SIZE_W,
+        IMAGE_SIZE_H,
+        VAL_DATA_DIR,
+        DEFEAT_DATA_DIR,
+        SHOW_IMG)
+
+def test(IMAGE_SIZE_W=32,
+         IMAGE_SIZE_H=32,
+         VAL_DATA_DIR="/home/ali/YOLOV5/runs/detect/f_384_2min/crops",
+         DEFEAT_DATA_DIR="/home/ali/YOLOV5/runs/detect/f_384_2min/defeat",
+         SHOW_IMG=True,
+         ):
   
-    SHOW_IMG = False
     if SHOW_IMG:
         BATCH_SIZE_VAL = 20
         SHOW_MAX_NUM = 4
@@ -24,16 +42,7 @@ def test():
         shuffle = False
     # convert data to torch.FloatTensor
    
-    
-    IMAGE_SIZE_W, IMAGE_SIZE_H = 32,32
-    TRAIN_DATA_DIR = "/home/ali/YOLOV5/runs/detect/f_384_2min/crops"
-    VAL_DATA_DIR = TRAIN_DATA_DIR
-    DEFEAT_DATA_DIR = "/home/ali/YOLOV5/runs/detect/f_384_2min/defeat"
     size = (IMAGE_SIZE_H,IMAGE_SIZE_W)
-
-
-
-    #size = (IMAGE_SIZE,IMAGE_SIZE)
     img_test_data = torchvision.datasets.ImageFolder(VAL_DATA_DIR,
                                                 transform=transforms.Compose([
                                                     transforms.Resize(size),
@@ -180,7 +189,6 @@ def test():
     if not SHOW_IMG: 
         # Importing packages
         import matplotlib.pyplot as plt2
-        
         # Define data values
         x = [i for i in range(SHOW_MAX_NUM)]
         y = positive_loss
@@ -190,13 +198,13 @@ def test():
         print(defeat_loss)
         # Plot a simple line chart
         #plt2.plot(x, y)
-        
         # Plot another line on the same chart/graph
         #plt2.plot(x, z)
-        
         plt2.scatter(x,y)
         plt2.scatter(x,z) 
         plt2.show()
         
 if __name__=="__main__":
-    test()
+    
+    main()
+    
