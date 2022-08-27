@@ -9,27 +9,31 @@ import torch
 import torchvision.transforms as transforms
 import torchvision
 import torch.nn as nn
-from network import *
+from network import network
 
 
 def main():
-    IMAGE_SIZE_W, IMAGE_SIZE_H = 32,32
-    TRAIN_DATA_DIR = "/home/ali/YOLOV5/runs/detect/f_384_2min/crops"
-    VAL_DATA_DIR = TRAIN_DATA_DIR
-    DEFEAT_DATA_DIR = "/home/ali/YOLOV5/runs/detect/f_384_2min/defeat"
-    size = (IMAGE_SIZE_H,IMAGE_SIZE_W)
     
+    IMAGE_SIZE_W, IMAGE_SIZE_H = 128,128
+    TRAIN_DATA_DIR = r"C:\factory_data\2022-08-26\f_384_2min\crops"
+    VAL_DATA_DIR = TRAIN_DATA_DIR
+    DEFEAT_DATA_DIR = r"C:\factory_data\2022-08-26\f_384_2min\defeat"
+    SHOW_IMG = False
+    modelPath = r"C:\GitHub_Code\AE\AutoEncoder-Pytorch\runs\train\AE_3_best_2.pt"
+   
     test(IMAGE_SIZE_W,
         IMAGE_SIZE_H,
         VAL_DATA_DIR,
         DEFEAT_DATA_DIR,
-        SHOW_IMG)
+        SHOW_IMG,
+        modelPath)
 
 def test(IMAGE_SIZE_W=32,
          IMAGE_SIZE_H=32,
          VAL_DATA_DIR="/home/ali/YOLOV5/runs/detect/f_384_2min/crops",
          DEFEAT_DATA_DIR="/home/ali/YOLOV5/runs/detect/f_384_2min/defeat",
          SHOW_IMG=True,
+         modelPath = r"/home/ali/AutoEncoder-Pytorch/model/AE_3_best_2.pt"
          ):
   
     if SHOW_IMG:
@@ -84,12 +88,12 @@ def test(IMAGE_SIZE_W=32,
     show_num = 0
     positive_loss, defeat_loss = [],[]
     print('Start test :')
-    modelPath = r"/home/ali/AutoEncoder-Pytorch/model/AE_3_best_2.pt"
+    
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     #device = torch.device('cpu')
     #model.eval()
     #model = ConvAutoencoder()
-    model = NetG()
+    model = network.NetG(isize=IMAGE_SIZE_H, nc=3, nz=100, ngf=64, ndf=64, ngpu=1, extralayers=0)
     #model = torch.load(modelPath).to(device)
     model.load_state_dict(torch.load(modelPath))
     print('load model weight from {} success'.format(modelPath))

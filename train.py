@@ -10,24 +10,24 @@ opener.addheaders = [('User-agent', 'Mozilla/5.0')]
 urllib.request.install_opener(opener)
 
 import torch
-from network import *
+from network import network
 import os
 import torchvision.transforms as transforms
 import torchvision
 import torch.nn as nn
 
 def main():
-    IMAGE_SIZE_W, IMAGE_SIZE_H = 32,32
-    TRAIN_DATA_DIR = "/home/ali/YOLOV5/runs/detect/f_384_2min/crops"
+    IMAGE_SIZE_W, IMAGE_SIZE_H = 128,128
+    TRAIN_DATA_DIR = r"C:\factory_data\2022-08-26\f_384_2min\crops"
     BATCH_SIZE = 64
-    SAVE_MODEL_DIR = r"/home/ali/AutoEncoder-Pytorch/model"
+    SAVE_MODEL_DIR = r"C:\GitHub_Code\AE\AutoEncoder-Pytorch\runs\train"
     n_epochs = 20
     train(IMAGE_SIZE_H,
-              IMAGE_SIZE_W,
-              TRAIN_DATA_DIR,
-              BATCH_SIZE,
-              SAVE_MODEL_DIR,
-              n_epochs)
+          IMAGE_SIZE_W,
+          TRAIN_DATA_DIR,
+          BATCH_SIZE,
+          SAVE_MODEL_DIR,
+          n_epochs)
 
 def train(IMAGE_SIZE_H = 32,
           IMAGE_SIZE_W = 32,
@@ -36,7 +36,6 @@ def train(IMAGE_SIZE_H = 32,
           SAVE_MODEL_DIR = r"/home/ali/AutoEncoder-Pytorch/model",
           n_epochs = 20
           ):
-    
     size = (IMAGE_SIZE_H,IMAGE_SIZE_W)
     img_data = torchvision.datasets.ImageFolder(TRAIN_DATA_DIR,
                                                 transform=transforms.Compose([
@@ -47,17 +46,22 @@ def train(IMAGE_SIZE_H = 32,
                                                 transforms.ToTensor()
                                                 ])
                                                 )
-
     train_loader = torch.utils.data.DataLoader(img_data, batch_size=BATCH_SIZE,shuffle=True,drop_last=False)
     print('train_loader length : {}'.format(len(train_loader)))
-    
-    
-    
     ''' use gpu if available'''
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = NetG().to(device)
+    '''load model'''
+    model = network.NetG(isize=IMAGE_SIZE_H, nc=3, nz=100, ngf=64, ndf=64, ngpu=1, extralayers=0).to(device)
     print(model)
+    print('IMAGE_SIZE_H:{}\n IMAGE_SIZE_W:{}\n TRAIN_DATA_DIR:{}\n BATCH_SIZE:{}\n SAVE_MODEL_DIR:{}\n n_epochs:{}\n'.format(IMAGE_SIZE_H,
+                                                                                                                             IMAGE_SIZE_W,
+                                                                                                                             TRAIN_DATA_DIR,
+                                                                                                                             BATCH_SIZE,
+                                                                                                                             SAVE_MODEL_DIR,
+                                                                                                                             n_epochs))
+    ''' set loss function '''
     criterion = nn.MSELoss()
+    ''' set optimizer function '''
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
     _lowest_loss = 100.0
     
@@ -66,23 +70,22 @@ def train(IMAGE_SIZE_H = 32,
         
     SAVE_MODEL_PATH = os.path.join(SAVE_MODEL_DIR,"AE_3_best_2.pt")
     for epoch in range(1, n_epochs+1):
-        # monitor training loss
         train_loss = 0.0   
-        
         for images, _  in train_loader: 
             images = images.to(device)
+            '''initial optimizer'''
             optimizer.zero_grad()
+            '''inference'''
             outputs = model(images)
-            ''' calculate the loss'''
+            ''' compute loss '''
             loss = compute_loss(outputs,images,criterion)
-            '''backward pass: compute gradient of the loss with respect to model parameters'''
+            ''' loss back propagation '''
             loss.backward()
-            '''perform a single optimization step (parameter update)'''
+            ''' optimize weight & bias '''
             optimizer.step()
-            '''update running training loss'''
+            ''' sum loss '''
             train_loss += loss.item()*images.size(0)
     
-        '''print avg training statistics''' 
         train_loss = train_loss/len(train_loader)
         print('Epoch: {} \tTraining Loss: {:.6f}'.format(epoch, train_loss))
         
@@ -94,7 +97,6 @@ def train(IMAGE_SIZE_H = 32,
             
 def compute_loss(outputs,images,criterion):
     gen_imag, latent_i, latent_o = outputs
-    ''' calculate the loss'''
     loss_con = criterion(gen_imag, images)
     loss_enc = criterion(latent_i, latent_o)
     loss = loss_enc + 50*loss_con

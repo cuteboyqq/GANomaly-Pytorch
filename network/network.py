@@ -130,15 +130,15 @@ class NetG(nn.Module):
     self.parser.add_argument('--ngf', type=int, default=64)
     self.parser.add_argument('--ndf', type=int, default=64)
     '''
-    def __init__(self):
+    def __init__(self, isize=32, nc=3, nz=100, ngf=64, ndf=64, ngpu=1, extralayers=0):
         super(NetG, self).__init__()
-        self.isize = 32
-        self.nc = 3
-        self.nz = 100
-        self.ngf = 64
-        self.ndf = 64
-        self.ngpu = 1
-        self.extralayers = 0
+        self.isize = isize
+        self.nc = nc
+        self.nz = nz
+        self.ngf = ngf
+        self.ndf = ndf
+        self.ngpu = ngpu
+        self.extralayers = extralayers
         self.encoder1 = Encoder(self.isize, self.nz, self.nc, self.ngf, self.ngpu, self.extralayers)
         self.decoder = Decoder(self.isize, self.nz, self.nc, self.ngf, self.ngpu, self.extralayers)
         self.encoder2 = Encoder(self.isize, self.nz, self.nc, self.ngf, self.ngpu, self.extralayers)
