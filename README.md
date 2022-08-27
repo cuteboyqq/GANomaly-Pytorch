@@ -58,6 +58,15 @@ dataset :factory line , top: input images, bottom: reconstruct images
 dataset :factory noline , top: input images, bottom: reconstruct images
 ![image](https://user-images.githubusercontent.com/58428559/187036162-52b6fb52-cc6b-44b6-99e5-d532332e9c9a.png)
 
+# Lose value distribution
+
+Blue : normal dataset
+
+Orange : abnormal dataset
+
+![image](https://user-images.githubusercontent.com/58428559/187037839-c6d04a52-9a95-48ce-9bed-8f598a367aaf.png)
+
+
 
 # Reference : 
 
