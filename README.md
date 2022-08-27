@@ -52,10 +52,12 @@ Example :
 Train dataset : factory line only
 
 dataset :factory line , top: input images, bottom: reconstruct images
-![image](https://user-images.githubusercontent.com/58428559/187033159-156e3b7d-35e9-4720-8c05-7420a7dda0eb.png)
+![image](https://user-images.githubusercontent.com/58428559/187036135-46cd0915-b695-48a8-b377-0859e57fb1da.png)
+
 
 dataset :factory noline , top: input images, bottom: reconstruct images
-![image](https://user-images.githubusercontent.com/58428559/187033196-c5d015a6-b71d-4bfd-a38a-cdae8e889455.png)
+![image](https://user-images.githubusercontent.com/58428559/187036162-52b6fb52-cc6b-44b6-99e5-d532332e9c9a.png)
+
 
 # Reference : 
 
