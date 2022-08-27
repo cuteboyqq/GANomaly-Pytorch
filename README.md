@@ -10,8 +10,8 @@ No Discriminator model
 
 3. Encoder/Decoder : Use paper network, conv--batchnorm--leakyrelu
 
+![image](https://user-images.githubusercontent.com/58428559/187036011-bc1b0777-c46d-4bea-ae84-ebf1f1cef524.png)
 
-![image](https://user-images.githubusercontent.com/58428559/187032363-003a6ef7-82b6-4829-a72f-000c9e4a1d86.png)
 
 # Train on custom dataset
 
