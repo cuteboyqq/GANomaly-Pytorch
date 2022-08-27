@@ -13,36 +13,29 @@ No Discriminator model
 
 ![image](https://user-images.githubusercontent.com/58428559/187032363-003a6ef7-82b6-4829-a72f-000c9e4a1d86.png)
 
-# Train normal dataset tree
+# Train on custom dataset
 
 ```
-─2022-08-26
-    │  
-    │
-    │  
-    └─f_384_2min
-        ├─crops
-        │  ├─blue_line
-        │  │      ori_video_ver22766.jpg
-        │  │      ori_video_ver22767.jpg
-        │  │      ori_video_ver22768.jpg
-        │  │      ori_video_ver22769.jpg
-        │  │      ori_video_ver22770.jpg
-        │  │      ori_video_ver22771.jpg
-        │  │      ori_video_ver22772.jpg
-        │  │      ori_video_ver22773.jpg
-        │  │      ori_video_ver22774.jpg
-        │  │      ori_video_ver22775.jpg
-        ...
+Custom Dataset
+├── test
+│   ├── 0.normal
+│   │   └── normal_tst_img_0.png
+│   │   └── normal_tst_img_1.png
+│   │   ...
+│   │   └── normal_tst_img_n.png
+│   ├── 1.abnormal
+│   │   └── abnormal_tst_img_0.png
+│   │   └── abnormal_tst_img_1.png
+│   │   ...
+│   │   └── abnormal_tst_img_m.png
+├── train
+│   ├── 0.normal
+│   │   └── normal_tst_img_0.png
+│   │   └── normal_tst_img_1.png
+│   │   ...
+│   │   └── normal_tst_img_t.png
 
-```
-# Test defect dataset tree
-```
-\---2022-08-26
-    \---f_384_2min  
-        \---defeat
-            +---noline
-            \---others
+
 ```
 
 # Train
