@@ -15,21 +15,30 @@ import warnings
 from torch.serialization import SourceChangeWarning
 warnings.filterwarnings("ignore", category=SourceChangeWarning)
 
-def main():
+def get_args():
+    import argparse
     
-    IMAGE_SIZE_W, IMAGE_SIZE_H = 128,128
-    TRAIN_DATA_DIR = r"C:\factory_data\2022-08-26\f_384_2min\crops"
-    VAL_DATA_DIR = TRAIN_DATA_DIR
-    DEFEAT_DATA_DIR = r"C:\factory_data\2022-08-26\f_384_2min\defeat"
-    SHOW_IMG = False
-    modelPath = r"C:\GitHub_Code\AE\AutoEncoder-Pytorch\runs\train\AE_3_best_2.pt"
-   
-    test(IMAGE_SIZE_W,
-        IMAGE_SIZE_H,
-        VAL_DATA_DIR,
-        DEFEAT_DATA_DIR,
-        SHOW_IMG,
-        modelPath)
+    parser = argparse.ArgumentParser()
+    #'/home/ali/datasets/train_video/NewYork_train/train/images'
+    parser.add_argument('-noramldir','--normal-dir',help='image dir',default=r"C:\factory_data\2022-08-26\f_384_2min\crops")
+    parser.add_argument('-abnoramldir','--abnormal-dir',help='image dir',default= r"C:\factory_data\2022-08-26\f_384_2min\defeat")
+    parser.add_argument('-imgsize','--img-size',type=int,help='image size',default=32)
+    parser.add_argument('-batchsize','--batch-size',type=int,help='train batch size',default=64)
+    parser.add_argument('-savedir','--save-dir',help='save model dir',default=r"C:\GitHub_Code\AE\AutoEncoder-Pytorch\runs\train")
+    parser.add_argument('-model','--model',help='model path',default= r"C:\GitHub_Code\AE\AutoEncoder-Pytorch\runs\train\AE_3_best_2.pt")
+    parser.add_argument('-viewimg','--view-img',action='store_true',help='view images')
+    return parser.parse_args()    
+
+
+def main():
+    args = get_args()
+    
+    test(args.img_size,
+        args.img_size,
+        args.normal_dir,
+        args.abnormal_dir,
+        True, #args.view_img,
+        args.model)
 
 
 def compute_loss(outputs,images,criterion):
@@ -102,11 +111,11 @@ def test(IMAGE_SIZE_W=32,
   
     if SHOW_IMG:
         BATCH_SIZE_VAL = 20
-        SHOW_MAX_NUM = 4
+        SHOW_MAX_NUM = 3
         shuffle = True
     else:
-        BATCH_SIZE_VAL = 20
-        SHOW_MAX_NUM = 40
+        BATCH_SIZE_VAL = 1
+        SHOW_MAX_NUM = 1000
         shuffle = False
     # convert data to torch.FloatTensor
    

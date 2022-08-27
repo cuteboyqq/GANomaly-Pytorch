@@ -16,18 +16,28 @@ import torchvision.transforms as transforms
 import torchvision
 import torch.nn as nn
 
+def get_args():
+    import argparse
+    
+    parser = argparse.ArgumentParser()
+    #'/home/ali/datasets/train_video/NewYork_train/train/images'
+    parser.add_argument('-imgdir','--img-dir',help='image dir',default=r"C:\factory_data\2022-08-26\f_384_2min\crops")
+    parser.add_argument('-imgsize','--img-size',type=int,help='image size',default=32)
+    parser.add_argument('-batchsize','--batch-size',type=int,help='train batch size',default=64)
+    parser.add_argument('-savedir','--save-dir',help='save model dir',default=r"C:\GitHub_Code\AE\AutoEncoder-Pytorch\runs\train")
+    parser.add_argument('-epoch','--epoch',type=int,help='num of epochs',default=20)
+    return parser.parse_args()    
+
+
 def main():
-    IMAGE_SIZE_W, IMAGE_SIZE_H = 128,128
-    TRAIN_DATA_DIR = r"C:\factory_data\2022-08-26\f_384_2min\crops"
-    BATCH_SIZE = 64
-    SAVE_MODEL_DIR = r"C:\GitHub_Code\AE\AutoEncoder-Pytorch\runs\train"
-    n_epochs = 20
-    train(IMAGE_SIZE_H,
-          IMAGE_SIZE_W,
-          TRAIN_DATA_DIR,
-          BATCH_SIZE,
-          SAVE_MODEL_DIR,
-          n_epochs)
+    args = get_args()
+   
+    train(args.img_size,
+          args.img_size,
+          args.img_dir,
+          args.batch_size ,
+          args.save_dir ,
+          args.epoch )
 
 def train(IMAGE_SIZE_H = 32,
           IMAGE_SIZE_W = 32,
