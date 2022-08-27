@@ -2,13 +2,13 @@
 
 No Discriminator model 
 
-implement :
+# implement 
 
-Encoder--Decoder--Encoder
+1. Encoder--Decoder--Encoder
 
-loss function
+2. loss function
 
-Encoder/Decoder : Use paper network, conv--batchnorm--leakyrelu
+3. Encoder/Decoder : Use paper network, conv--batchnorm--leakyrelu
 
 
 ![image](https://user-images.githubusercontent.com/58428559/187032363-003a6ef7-82b6-4829-a72f-000c9e4a1d86.png)
