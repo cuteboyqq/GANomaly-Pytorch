@@ -15,7 +15,26 @@ No Discriminator model
 
 # dataset
 
-tree /
+```
+\---2022-08-26
+    \---f_384_2min
+        +---crops
+        |   +---blue_line
+        |   +---gray_line
+        |   \---Green_line
+        +---crops_left
+        |   +---blue_line
+        |   +---gray_line
+        |   \---Green_line
+        +---crops_ori
+        |   +---line
+        |   +---noline
+        |   \---others
+        \---defeat
+            +---noline
+            \---others
+
+```
 
 # Train
 ```
