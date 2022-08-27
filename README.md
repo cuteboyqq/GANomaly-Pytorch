@@ -41,12 +41,12 @@ Custom Dataset
 
 # Train
 ```
-python train.py
+python train.py --img-dir "[train dataset dir]" --batch-size 64 --img-size 32 --epoch 20
 ```
 
 # Test
 ```
-python test.py
+python test.py --nomal-dir "[test normal dataset dir]" --abnormal-dir "[test abnormal dataset dir]" --view-img --img-size 32
 ```
 Example :
 Train dataset : factory line only
