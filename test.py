@@ -37,7 +37,7 @@ def main():
         args.img_size,
         args.normal_dir,
         args.abnormal_dir,
-        True, #args.view_img,
+        args.view_img, #args.view_img,
         args.model)
 
 
@@ -115,7 +115,7 @@ def test(IMAGE_SIZE_W=32,
         shuffle = True
     else:
         BATCH_SIZE_VAL = 1
-        SHOW_MAX_NUM = 1000
+        SHOW_MAX_NUM = 2000
         shuffle = False
     # convert data to torch.FloatTensor
    
