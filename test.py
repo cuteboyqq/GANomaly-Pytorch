@@ -10,6 +10,7 @@ import torchvision.transforms as transforms
 import torchvision
 import torch.nn as nn
 from network import network
+from util import loss
 from util import plot
 import warnings
 from torch.serialization import SourceChangeWarning
@@ -37,16 +38,16 @@ def main():
         args.img_size,
         args.normal_dir,
         args.abnormal_dir,
-        args.view_img, #args.view_img,
+        False, #args.view_img,
         args.model)
 
 
 def compute_loss(outputs,images,criterion):
     gen_imag, latent_i, latent_o = outputs
-    loss_con = criterion(gen_imag, images)
-    loss_enc = criterion(latent_i, latent_o)
-    loss = loss_enc + 50*loss_con
-    return loss
+    loss_con = loss.l2_loss(images, gen_imag)
+    loss_enc = loss.l1_loss(latent_i, latent_o)
+    loss_sum = loss_enc + 10*loss_con
+    return loss_sum
 
 def infer(data_loader,
           SHOW_MAX_NUM,
@@ -111,11 +112,11 @@ def test(IMAGE_SIZE_W=32,
   
     if SHOW_IMG:
         BATCH_SIZE_VAL = 20
-        SHOW_MAX_NUM = 3
+        SHOW_MAX_NUM = 10
         shuffle = True
     else:
-        BATCH_SIZE_VAL = 1
-        SHOW_MAX_NUM = 2000
+        BATCH_SIZE_VAL = 20
+        SHOW_MAX_NUM = 100
         shuffle = False
     # convert data to torch.FloatTensor
    

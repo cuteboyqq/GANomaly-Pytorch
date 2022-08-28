@@ -15,6 +15,7 @@ import os
 import torchvision.transforms as transforms
 import torchvision
 import torch.nn as nn
+from util import loss
 
 def get_args():
     import argparse
@@ -107,10 +108,10 @@ def train(IMAGE_SIZE_H = 32,
             
 def compute_loss(outputs,images,criterion):
     gen_imag, latent_i, latent_o = outputs
-    loss_con = criterion(gen_imag, images)
-    loss_enc = criterion(latent_i, latent_o)
-    loss = loss_enc + 50*loss_con
-    return loss
+    loss_con = loss.l2_loss(images, gen_imag)
+    loss_enc = loss.l1_loss(latent_i, latent_o)
+    loss_sum = loss_enc + 10*loss_con
+    return loss_sum
     
 if __name__=="__main__":
     main()
