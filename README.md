@@ -6,6 +6,7 @@
     - [Train](#Train)
     - [Test](#Test)
         - [Example](#Example)
+        - [Train factory dataset](#Train factory dataset)
         - [Lose value distribution](#Lose value distribution)
     - [Reference](#Reference)
 
@@ -26,7 +27,7 @@ No Discriminator model
 
 
 
-## Train on custom dataset
+##Train on custom dataset
 
 ```
 Custom Dataset
@@ -63,7 +64,9 @@ python test.py --nomal-dir "[test normal dataset dir]" --abnormal-dir "[test abn
 ##Example
 
 
-Train dataset : factory line only, batch_size=64, img_size=64, nz=400, epoch=30
+##Train factory dataset
+
+factory line only, batch_size=64, img_size=64, nz=400, epoch=30
 
 dataset :factory line , top: input images, bottom: reconstruct images
 ![image](https://user-images.githubusercontent.com/58428559/187036135-46cd0915-b695-48a8-b377-0859e57fb1da.png)
@@ -72,7 +75,7 @@ dataset :factory line , top: input images, bottom: reconstruct images
 dataset :factory noline , top: input images, bottom: reconstruct images
 ![image](https://user-images.githubusercontent.com/58428559/187036162-52b6fb52-cc6b-44b6-99e5-d532332e9c9a.png)
 
-## Lose value distribution
+##Lose value distribution
 
 Blue : normal dataset
 
