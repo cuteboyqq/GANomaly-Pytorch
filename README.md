@@ -86,14 +86,14 @@ python test.py --nomal-dir "[test normal dataset dir]" --abnormal-dir "[test abn
 [(Back to top)](#table-of-contents)
 
 #### Train dataset 
-train line images (normal train images)
+Train line images (normal train images)
 ![image](https://user-images.githubusercontent.com/58428559/187246350-0d0bcab6-339c-4bea-a30f-e39271c7f80d.png)
 
 
 #### Test dataset
-test line images (normal test images)
+Test line images (normal test images)
 ![image](https://user-images.githubusercontent.com/58428559/187246615-f194c45a-caac-434a-93a9-3cad1a6d31ca.png)
-test noline images (abnormal test images)
+Test noline images (abnormal test images)
 ![image](https://user-images.githubusercontent.com/58428559/187246816-711895b0-9d24-4c6c-9642-3119ae3ec6bc.png)
 
 
