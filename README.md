@@ -92,11 +92,9 @@ line train images
     Prepare 1.line images 2.noline images, we regard noline images as abnormal images 
 
 line test images
-
 ![image](https://user-images.githubusercontent.com/58428559/187246615-f194c45a-caac-434a-93a9-3cad1a6d31ca.png)
 
 noline test images:
-
 ![image](https://user-images.githubusercontent.com/58428559/187246816-711895b0-9d24-4c6c-9642-3119ae3ec6bc.png)
 
 
