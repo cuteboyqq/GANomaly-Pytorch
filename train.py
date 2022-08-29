@@ -22,11 +22,11 @@ def get_args():
     
     parser = argparse.ArgumentParser()
     #'/home/ali/datasets/train_video/NewYork_train/train/images'
-    parser.add_argument('-imgdir','--img-dir',help='image dir',default=r"C:\factory_data\2022-08-26\f_384_2min\crops")
-    parser.add_argument('-imgsize','--img-size',type=int,help='image size',default=32)
+    parser.add_argument('-imgdir','--img-dir',help='image dir',default=r"/home/ali/YOLOV5/runs/detect/f_384_2min/crops")
+    parser.add_argument('-imgsize','--img-size',type=int,help='image size',default=64)
     parser.add_argument('-batchsize','--batch-size',type=int,help='train batch size',default=64)
-    parser.add_argument('-savedir','--save-dir',help='save model dir',default=r"C:\GitHub_Code\AE\AutoEncoder-Pytorch\runs\train")
-    parser.add_argument('-epoch','--epoch',type=int,help='num of epochs',default=20)
+    parser.add_argument('-savedir','--save-dir',help='save model dir',default="/home/ali/AutoEncoder-Pytorch/runs/train")
+    parser.add_argument('-epoch','--epoch',type=int,help='num of epochs',default=30)
     return parser.parse_args()    
 
 
@@ -54,7 +54,8 @@ def train(IMAGE_SIZE_H = 32,
                                                 #transforms.RandomHorizontalFlip(),
                                                 #transforms.Scale(64),
                                                 transforms.CenterCrop(size),                                                 
-                                                transforms.ToTensor()
+                                                transforms.ToTensor(),
+                                                transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)) #GANomaly parameter
                                                 ])
                                                 )
     train_loader = torch.utils.data.DataLoader(img_data, batch_size=BATCH_SIZE,shuffle=True,drop_last=False)
@@ -62,7 +63,7 @@ def train(IMAGE_SIZE_H = 32,
     ''' use gpu if available'''
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     '''load model'''
-    model = network.NetG(isize=IMAGE_SIZE_H, nc=3, nz=100, ngf=64, ndf=64, ngpu=1, extralayers=0).to(device)
+    model = network.NetG(isize=IMAGE_SIZE_H, nc=3, nz=400, ngf=64, ndf=64, ngpu=1, extralayers=0).to(device)
     print(model)
     print('IMAGE_SIZE_H:{}\n IMAGE_SIZE_W:{}\n TRAIN_DATA_DIR:{}\n BATCH_SIZE:{}\n SAVE_MODEL_DIR:{}\n n_epochs:{}\n'.format(IMAGE_SIZE_H,
                                                                                                                              IMAGE_SIZE_W,
@@ -110,7 +111,7 @@ def compute_loss(outputs,images,criterion):
     gen_imag, latent_i, latent_o = outputs
     loss_con = loss.l2_loss(images, gen_imag)
     loss_enc = loss.l1_loss(latent_i, latent_o)
-    loss_sum = loss_enc + 10*loss_con
+    loss_sum = loss_enc + 50*loss_con
     return loss_sum
     
 if __name__=="__main__":
