@@ -116,6 +116,8 @@ python test.py --nomal-dir "[line dataset dir]" --abnormal-dir "[noline dataset 
 ```
 
 #### Inference-result
+[(Back to Top)](#table-of-contents)
+
 Inference factory line , top: input images, bottom: reconstruct images
 ![image](https://user-images.githubusercontent.com/58428559/187036135-46cd0915-b695-48a8-b377-0859e57fb1da.png)
 
