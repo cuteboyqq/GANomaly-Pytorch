@@ -18,6 +18,8 @@ Here is a sample TOC(*wow! such cool!*) that is actually the TOC for this README
     - [Test](#Test)
         - [Example](#Example)
             - [Train factory dataset](#Train-factory-dataset)
+                - [Train dataset](#Train-dataset)
+                - [Test dataset](#Test-dataset)
             - [Inference factory dataset](#Inference-factory-dataset)
             - [Factory datasets Lose value distribution](#Factory-datasets-Lose-value-distribution)
     - [Reference](#Reference)
@@ -86,12 +88,12 @@ python test.py --nomal-dir "[test normal dataset dir]" --abnormal-dir "[test abn
 [(Back to top)](#table-of-contents)
 
 First needs to prepare factory normal datasets and abnormal datasets, we have line datasets as normal dataset, and there is no abnormal dataset, so use noline dataset as abnormal dataset
-#### Train dataset 
+#### Train-dataset 
 Train line images (Normal images)
 ![image](https://user-images.githubusercontent.com/58428559/187246350-0d0bcab6-339c-4bea-a30f-e39271c7f80d.png)
 
 
-#### Test dataset
+#### Test-dataset
 Test line images (Normal images)
 ![image](https://user-images.githubusercontent.com/58428559/187246615-f194c45a-caac-434a-93a9-3cad1a6d31ca.png)
 Test noline images (Abnormal images)
