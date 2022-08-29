@@ -3,7 +3,7 @@
 
 This model enable to detect defect by training normal dataset only, so model is unable to distinguish abnormal images, result in loss value is higher than normal images. In short word, we can find abnormal images by loss value.
 
-good model result is  "loss value of model(normal image)  <  loss value of model(abnormal image)"
+AE model inference abnormal images will get larger loss value
 
 No Discriminator model 
 
