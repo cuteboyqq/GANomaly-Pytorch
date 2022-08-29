@@ -102,8 +102,9 @@ python train.py --img-dir "[line images dir]" --batch-size 64 --img-size 64 --ep
 ```
 ## Inference-factory-dataset
 [(Back to top)](#table-of-contents)
+#### Inference(test) command
 ```
-python test.py --nomal-dir "[test normal dataset dir]" --abnormal-dir "[test abnormal dataset dir]" --view-img --img-size 64
+python test.py --nomal-dir "[line dataset dir]" --abnormal-dir "[noline dataset dir]" --view-img --img-size 64
 ```
 dataset :factory line , top: input images, bottom: reconstruct images
 ![image](https://user-images.githubusercontent.com/58428559/187036135-46cd0915-b695-48a8-b377-0859e57fb1da.png)
