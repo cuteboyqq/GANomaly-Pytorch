@@ -1,4 +1,4 @@
-# AutoEncoder-Pytorch
+# 1.AutoEncoder-Pytorch
 [(Back to Table)](#table-of-contents)
 
 This model enable to detect defect by training normal dataset only, so model is unable to distinguish abnormal images, result in loss value is higher than normal images. In short word, we can find abnormal images by loss value.
@@ -11,11 +11,11 @@ No Discriminator model
 
 Here is a sample TOC(*wow! such cool!*) that is actually the TOC for this README. -->
 # Table of Contents
-- [AutoEncoder-Pytorch](#AutoEncoder-Pytorch)
-    - [Implement](#Implement)
-    - [Train on custom dataset](#Train-on-custom-dataset)
-    - [Train](#Train)
-    - [Test](#Test)
+- [AutoEncoder-Pytorch](#1.AutoEncoder-Pytorch)
+    - [Implement](#2.Implement)
+    - [Train on custom dataset](#3.Train-on-custom-dataset)
+    - [Train](#4.Train)
+    - [Test](#5.Test)
         - [Example](#Example)
             - [Train factory dataset](#Train-factory-dataset)
             - [Inference factory dataset](#Inference-factory-dataset)
@@ -23,7 +23,7 @@ Here is a sample TOC(*wow! such cool!*) that is actually the TOC for this README
     - [Reference](#Reference)
 
 
-# Implement 
+# 2.Implement 
 [(Back to top)](#table-of-contents)
 
 1. Encoder--Decoder--Encoder
@@ -38,7 +38,7 @@ Below image reference from : https://arxiv.org/abs/1805.06725
 
 
 
-# Train-on-custom-dataset
+# 3.Train-on-custom-dataset
 [(Back to top)](#table-of-contents)
 
 To train the model on a custom dataset, the dataset should have the following directory & file structure:
@@ -65,14 +65,14 @@ Custom Dataset
 
 ```
 
-# Train
+# 4.Train
 [(Back to Top)](#table-of-contents)
 
 ```
 python train.py --img-dir "[train dataset dir]" --batch-size 64 --img-size 32 --epoch 20
 ```
 
-# Test
+# 5.Test
 [(Back to Top)](#table-of-contents)
 
 ```
