@@ -78,7 +78,9 @@ python test.py --nomal-dir "[test normal dataset dir]" --abnormal-dir "[test abn
 [(Back to top)](#table-of-contents)
 
 factory line only, batch_size=64, img_size=64, nz=400, epoch=30
-
+```
+python train.py --img-dir "[train dataset dir]" --batch-size 64 --img-size 64 --epoch 30 
+```
 dataset :factory line , top: input images, bottom: reconstruct images
 ![image](https://user-images.githubusercontent.com/58428559/187036135-46cd0915-b695-48a8-b377-0859e57fb1da.png)
 
