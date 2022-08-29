@@ -10,8 +10,8 @@ Here is a sample TOC(*wow! such cool!*) that is actually the TOC for this README
 - [AutoEncoder-Pytorch](#AutoEncoder-Pytorch)
     - [implement](#Implement)
     - [Train on custom dataset](#Train-on-custom-dataset)
-    - [Train](#Train)
-    - [Test](#Test)
+    - [Train](#Train-command)
+    - [Test](#Test-command)
         - [Example](#Example)
             - [Train factory dataset](#Train-factory-dataset)
             - [Lose value distribution](#Lose-value-distribution)
@@ -57,14 +57,14 @@ Custom Dataset
 
 ```
 
-# Train
+# Train-command
 [(Back to Top)](#table-of-contents)
 
 ```
 python train.py --img-dir "[train dataset dir]" --batch-size 64 --img-size 32 --epoch 20
 ```
 
-# Test
+# Test-command
 [(Back to Top)](#table-of-contents)
 
 ```
