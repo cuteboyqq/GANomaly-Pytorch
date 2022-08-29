@@ -84,6 +84,9 @@ python test.py --nomal-dir "[test normal dataset dir]" --abnormal-dir "[test abn
 #### Train dataset 
     Prepare line images, train line images as normal datasets
 
+![image](https://user-images.githubusercontent.com/58428559/187246350-0d0bcab6-339c-4bea-a30f-e39271c7f80d.png)
+
+
 #### Test dataset
     Prepare 1.line images 2.noline images, we regard noline images as abnormal images 
 
