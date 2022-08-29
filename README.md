@@ -34,6 +34,7 @@ Here is a sample TOC(*wow! such cool!*) that is actually the TOC for this README
 # Train-on-custom-dataset
 [(Back to top)](#table-of-contents)
 
+To train the model on a custom dataset, the dataset should be copied into ./data directory, and should have the following directory & file structure:
 ```
 Custom Dataset
 ├── test
