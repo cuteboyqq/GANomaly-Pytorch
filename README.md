@@ -117,11 +117,11 @@ dataset :factory noline , top raw: input images, bottom raw: reconstruct images
 ## Factory-datasets-Lose-value-distribution
 [(Back to top)](#table-of-contents)
 
-Blue : normal dataset (Total is 6000)
+Blue : normal images (line) (Total is 6000)
 
-Orange : abnormal dataset (original datasets : 2000, flip lr augment : 2000, GaussianBlur 7 : 2000, total : 6000)
+Orange : abnormal images (noline) (original datasets : 2000, flip lr augment : 2000, GaussianBlur 7 : 2000, total : 6000)
 
-As you can see loss value of normal images is lower than abnormal images, but there are still some loss value of abnormal images lower than normal images.
+As you can see loss value of normal images is lower than abnormal images, but there are still some loss value of normal images higher than abnormal images.
 
 ![image](https://user-images.githubusercontent.com/58428559/187195639-ae90b89e-3f24-4718-9191-228ab83580d5.png)
 
