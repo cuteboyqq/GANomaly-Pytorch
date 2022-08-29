@@ -96,10 +96,6 @@ Test line images (Normal images)
 Test noline images (Abnormal images)
 ![image](https://user-images.githubusercontent.com/58428559/187246816-711895b0-9d24-4c6c-9642-3119ae3ec6bc.png)
 
-
-#### Train Parameters
-    batch_size=64, img_size=64, nz=400, epoch=30
-
 #### Train command
 ```
 python train.py --img-dir "[line images dir]" --batch-size 64 --img-size 64 --epoch 30 
