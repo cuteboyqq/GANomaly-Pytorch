@@ -81,13 +81,13 @@ python test.py --nomal-dir "[test normal dataset dir]" --abnormal-dir "[test abn
 ## Train-factory-dataset
 [(Back to top)](#table-of-contents)
 
-#### Train dataset : 
-    Factory line dataset
+#### Train dataset 
+    Prepare line images, train line images as normal datasets
 
-#### Test dataset  : 
-    1. Factory line dataset 2. Factory noline dataset
+#### Test dataset
+    1.line images 2.noline images, we regard noline images as abnormal images
 
-#### Train Parameters : 
+#### Train Parameters
     batch_size=64, img_size=64, nz=400, epoch=30
 
 #### Train command
