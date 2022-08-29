@@ -6,7 +6,7 @@ No Discriminator model
 <!-- After you have introduced your project, it is a good idea to add a **Table of contents** or **TOC** as **cool** people say it. This would make it easier for people to navigate through your README and find exactly what they are looking for.
 
 Here is a sample TOC(*wow! such cool!*) that is actually the TOC for this README. -->
-#  1. Table of Contents
+# Table of Contents
 - [AutoEncoder-Pytorch](#AutoEncoder-Pytorch)
     - [implement](#Implement)
     - [Train on custom dataset](#Train-on-custom-dataset)
