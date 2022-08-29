@@ -14,6 +14,7 @@ Here is a sample TOC(*wow! such cool!*) that is actually the TOC for this README
     - [Test](#Test)
         - [Example](#Example)
             - [Train factory dataset](#Train-factory-dataset)
+            - [Inference result](#Inference-factory-dataset)
             - [Factory Lose value distribution](#Factory-Lose-value-distribution)
     - [Reference](#Reference)
 
@@ -85,8 +86,8 @@ python train.py --img-dir "[train dataset dir]" --batch-size 64 --img-size 64 --
 dataset :factory line , top: input images, bottom: reconstruct images
 ![image](https://user-images.githubusercontent.com/58428559/187036135-46cd0915-b695-48a8-b377-0859e57fb1da.png)
 
-
-dataset :factory noline , top: input images, bottom: reconstruct images
+# Inference-factory-dataset
+dataset :factory noline , top raw: input images, bottom raw: reconstruct images
 ![image](https://user-images.githubusercontent.com/58428559/187036162-52b6fb52-cc6b-44b6-99e5-d532332e9c9a.png)
 
 ## Factory-Lose-value-distribution
