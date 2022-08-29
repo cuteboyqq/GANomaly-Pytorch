@@ -89,6 +89,8 @@ python test.py --nomal-dir "[test normal dataset dir]" --abnormal-dir "[test abn
 
 #### Train Parameters : 
     batch_size=64, img_size=64, nz=400, epoch=30
+
+#### Train command
 ```
 python train.py --img-dir "[train dataset dir]" --batch-size 64 --img-size 64 --epoch 30 
 ```
