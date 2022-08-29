@@ -19,8 +19,8 @@ Here is a sample TOC(*wow! such cool!*) that is actually the TOC for this README
         - [Example](#Example)
             - [Train factory dataset](#Train-factory-dataset)
                 - [Train dataset](#Train-dataset)
-                - [Test dataset](#Test-dataset)
             - [Inference factory dataset](#Inference-factory-dataset)
+                - [Test dataset](#Test-dataset)
             - [Factory datasets Lose value distribution](#Factory-datasets-Lose-value-distribution)
     - [Reference](#Reference)
 
@@ -94,6 +94,11 @@ First needs to prepare factory normal datasets and abnormal datasets, we have li
 Train line images (Normal images)
 ![image](https://user-images.githubusercontent.com/58428559/187246350-0d0bcab6-339c-4bea-a30f-e39271c7f80d.png)
 
+#### Train command
+```
+python train.py --img-dir "[line images dir]" --batch-size 64 --img-size 64 --epoch 30 
+```
+## Inference-factory-dataset
 
 #### Test-dataset
 [(Back to top)](#table-of-contents)
@@ -103,11 +108,6 @@ Test line images (Normal images)
 Test noline images (Abnormal images)
 ![image](https://user-images.githubusercontent.com/58428559/187246816-711895b0-9d24-4c6c-9642-3119ae3ec6bc.png)
 
-#### Train command
-```
-python train.py --img-dir "[line images dir]" --batch-size 64 --img-size 64 --epoch 30 
-```
-## Inference-factory-dataset
 [(Back to top)](#table-of-contents)
 #### Inference(test) command
 ```
