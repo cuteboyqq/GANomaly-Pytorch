@@ -1,6 +1,8 @@
 # AutoEncoder-Pytorch
 [(Back to Table)](#table-of-contents)
 
+This model enable to detect defect by training normal dataset only, so model is unable to distinguish abnormal images, result in loss value is higher than normal images. We can find abnormal images by loss value.
+
 No Discriminator model 
 
 <!-- After you have introduced your project, it is a good idea to add a **Table of contents** or **TOC** as **cool** people say it. This would make it easier for people to navigate through your README and find exactly what they are looking for.
