@@ -14,7 +14,7 @@ Here is a sample TOC(*wow! such cool!*) that is actually the TOC for this README
     - [Test](#Test)
         - [Example](#Example)
             - [Train factory dataset](#Train-factory-dataset)
-            - [Lose value distribution](#Lose-value-distribution)
+            - [Factory Lose value distribution](#Factory-Lose-value-distribution)
     - [Reference](#Reference)
 
 
@@ -86,7 +86,7 @@ dataset :factory line , top: input images, bottom: reconstruct images
 dataset :factory noline , top: input images, bottom: reconstruct images
 ![image](https://user-images.githubusercontent.com/58428559/187036162-52b6fb52-cc6b-44b6-99e5-d532332e9c9a.png)
 
-## Lose-value-distribution
+## Factory-Lose-value-distribution
 [(Back to top)](#table-of-contents)
 
 Blue : normal dataset
