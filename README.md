@@ -96,9 +96,9 @@ dataset :factory noline , top raw: input images, bottom raw: reconstruct images
 ## Factory-datasets-Lose-value-distribution
 [(Back to top)](#table-of-contents)
 
-Blue : normal dataset (6000)
+Blue : normal dataset (Total is 6000)
 
-Orange : abnormal dataset (original 2000 + flip augment 2000 + GaussianBlur 7 2000 = 6000)
+Orange : abnormal dataset (2000 of original, and add 2000 of flip augment, and add 2000 of GaussianBlur 7, so total is 6000)
 
 ![image](https://user-images.githubusercontent.com/58428559/187195639-ae90b89e-3f24-4718-9191-228ab83580d5.png)
 
