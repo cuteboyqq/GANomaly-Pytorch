@@ -49,7 +49,7 @@ python train.py --img-dir "[train dataset dir]" --batch-size 64 --img-size 32 --
 python test.py --nomal-dir "[test normal dataset dir]" --abnormal-dir "[test abnormal dataset dir]" --view-img --img-size 32
 ```
 Example :
-Train dataset : factory line only, batch_size=64, img_size=64, nz=400
+Train dataset : factory line only, batch_size=64, img_size=64, nz=400, epoch=30
 
 dataset :factory line , top: input images, bottom: reconstruct images
 ![image](https://user-images.githubusercontent.com/58428559/187036135-46cd0915-b695-48a8-b377-0859e57fb1da.png)
