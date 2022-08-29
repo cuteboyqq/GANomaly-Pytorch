@@ -1,3 +1,8 @@
+# AutoEncoder-Pytorch
+[(Back to Table)](#table-of-contents)
+
+No Discriminator model 
+
 
 #  1. Table of Contents
 - [AutoEncoder-Pytorch](#AutoEncoder-Pytorch)
@@ -9,11 +14,6 @@
         - [Lose value distribution](#Lose-value-distribution)
     - [Reference](#Reference)
 
-
-# AutoEncoder-Pytorch
-[(Back to top)](#table-of-contents)
-
-No Discriminator model 
 
 ## implement 
 [(Back to top)](#table-of-contents)
