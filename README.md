@@ -2,7 +2,7 @@
 ##  1. Table of Contents
 - [AutoEncoder-Pytorch](#AutoEncoder-Pytorch)
     - [implement](#implement)
-    - [Train on custom dataset](#Train on custom dataset)
+    - [Train on custom dataset](#Train-on-custom-dataset)
     - [Train](#Train)
     - [Test](#Test)
         - [Example](#Example)
@@ -26,7 +26,7 @@ No Discriminator model
 
 
 
-# Train on custom dataset
+# Train-on-custom-dataset
 
 ```
 Custom Dataset
