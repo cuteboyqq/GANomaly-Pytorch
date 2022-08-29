@@ -92,7 +92,7 @@ python test.py --nomal-dir "[test normal dataset dir]" --abnormal-dir "[test abn
 
 #### Train command
 ```
-python train.py --img-dir "[train dataset dir]" --batch-size 64 --img-size 64 --epoch 30 
+python train.py --img-dir "[line images dir]" --batch-size 64 --img-size 64 --epoch 30 
 ```
 ## Inference-factory-dataset
 [(Back to top)](#table-of-contents)
