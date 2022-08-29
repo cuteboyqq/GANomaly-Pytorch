@@ -6,7 +6,6 @@
     - [Train](#Train)
     - [Test](#Test)
         - [Example](#Example)
-        - [Train factory dataset](#Train factory dataset)
         - [Lose value distribution](#Lose value distribution)
     - [Reference](#Reference)
 
