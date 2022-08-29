@@ -64,7 +64,7 @@ Blue : normal dataset
 
 Orange : abnormal dataset
 
-![image](https://user-images.githubusercontent.com/58428559/187192605-e56d166d-76d8-4a63-a265-145b6b08b1be.png)
+![image](https://user-images.githubusercontent.com/58428559/187195639-ae90b89e-3f24-4718-9191-228ab83580d5.png)
 
 
 
