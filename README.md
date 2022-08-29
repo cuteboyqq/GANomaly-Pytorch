@@ -13,7 +13,8 @@ Here is a sample TOC(*wow! such cool!*) that is actually the TOC for this README
     - [Train](#Train)
     - [Test](#Test)
         - [Example](#Example)
-        - [Lose value distribution](#Lose-value-distribution)
+            - [Train factory dataset](#Train-factory-dataset)
+            - [Lose value distribution](#Lose-value-distribution)
     - [Reference](#Reference)
 
 
@@ -73,7 +74,7 @@ python test.py --nomal-dir "[test normal dataset dir]" --abnormal-dir "[test abn
 [(Back to top)](#table-of-contents)
 
 
-## Train factory dataset
+## Train-factory-dataset
 [(Back to top)](#table-of-contents)
 
 factory line only, batch_size=64, img_size=64, nz=400, epoch=30
