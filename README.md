@@ -6,7 +6,7 @@
     - [Train](#Train)
     - [Test](#Test)
         - [Example](#Example)
-        - [Lose value distribution](#Lose value distribution)
+        - [Lose value distribution](#Lose-value-distribution)
     - [Reference](#Reference)
 
 
@@ -74,7 +74,7 @@ dataset :factory line , top: input images, bottom: reconstruct images
 dataset :factory noline , top: input images, bottom: reconstruct images
 ![image](https://user-images.githubusercontent.com/58428559/187036162-52b6fb52-cc6b-44b6-99e5-d532332e9c9a.png)
 
-# Lose value distribution
+# Lose-value-distribution
 
 Blue : normal dataset
 
