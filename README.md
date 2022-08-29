@@ -90,6 +90,15 @@ python test.py --nomal-dir "[test normal dataset dir]" --abnormal-dir "[test abn
 #### Test dataset
     Prepare 1.line images 2.noline images, we regard noline images as abnormal images 
 
+below is line images:
+
+![image](https://user-images.githubusercontent.com/58428559/187246615-f194c45a-caac-434a-93a9-3cad1a6d31ca.png)
+
+below is noline images:
+
+![image](https://user-images.githubusercontent.com/58428559/187246816-711895b0-9d24-4c6c-9642-3119ae3ec6bc.png)
+
+
 #### Train Parameters
     batch_size=64, img_size=64, nz=400, epoch=30
 
