@@ -21,6 +21,7 @@ Here is a sample TOC(*wow! such cool!*) that is actually the TOC for this README
                 - [Train dataset](#Train-dataset)
             - [Inference factory dataset](#Inference-factory-dataset)
                 - [Test dataset](#Test-dataset)
+                - [Inference result](#Inference-result)
             - [Factory datasets Lose value distribution](#Factory-datasets-Lose-value-distribution)
     - [Reference](#Reference)
 
@@ -113,11 +114,12 @@ Test noline images (Abnormal images)
 ```
 python test.py --nomal-dir "[line dataset dir]" --abnormal-dir "[noline dataset dir]" --view-img --img-size 64
 ```
-dataset :factory line , top: input images, bottom: reconstruct images
+
+#### Inference-result
+Inference factory line , top: input images, bottom: reconstruct images
 ![image](https://user-images.githubusercontent.com/58428559/187036135-46cd0915-b695-48a8-b377-0859e57fb1da.png)
 
-
-dataset :factory noline , top raw: input images, bottom raw: reconstruct images
+Inference factory noline , top raw: input images, bottom raw: reconstruct images
 ![image](https://user-images.githubusercontent.com/58428559/187036162-52b6fb52-cc6b-44b6-99e5-d532332e9c9a.png)
 
 ## Factory-datasets-Lose-value-distribution
