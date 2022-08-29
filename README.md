@@ -57,7 +57,7 @@ Custom Dataset
 ```
 
 # Train
-[(Top)](#table-of-contents)
+[(Back-To-Top)](#table-of-contents)
 
 ```
 python train.py --img-dir "[train dataset dir]" --batch-size 64 --img-size 32 --epoch 20
