@@ -11,7 +11,7 @@
     - [Reference](#Reference)
 
 
-## AutoEncoder-Pytorch
+# AutoEncoder-Pytorch
 
 No Discriminator model 
 
@@ -27,7 +27,7 @@ No Discriminator model
 
 
 
-##Train on custom dataset
+# Train on custom dataset
 
 ```
 Custom Dataset
@@ -61,10 +61,10 @@ python train.py --img-dir "[train dataset dir]" --batch-size 64 --img-size 32 --
 ```
 python test.py --nomal-dir "[test normal dataset dir]" --abnormal-dir "[test abnormal dataset dir]" --view-img --img-size 32
 ```
-##Example
+# Example
 
 
-##Train factory dataset
+# Train factory dataset
 
 factory line only, batch_size=64, img_size=64, nz=400, epoch=30
 
@@ -75,7 +75,7 @@ dataset :factory line , top: input images, bottom: reconstruct images
 dataset :factory noline , top: input images, bottom: reconstruct images
 ![image](https://user-images.githubusercontent.com/58428559/187036162-52b6fb52-cc6b-44b6-99e5-d532332e9c9a.png)
 
-##Lose value distribution
+# Lose value distribution
 
 Blue : normal dataset
 
@@ -85,7 +85,7 @@ Orange : abnormal dataset
 
 
 
-## Reference
+# Reference
 
 https://arxiv.org/abs/1805.06725
 
