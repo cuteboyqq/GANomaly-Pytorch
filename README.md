@@ -85,7 +85,7 @@ python test.py --nomal-dir "[test normal dataset dir]" --abnormal-dir "[test abn
     Prepare line images, train line images as normal datasets
 
 #### Test dataset
-    1.line images 2.noline images, we regard noline images as abnormal images
+    Prepare 1.line images 2.noline images, we regard noline images as abnormal images, so inference noline images(abnormal images) will get larger loss value 
 
 #### Train Parameters
     batch_size=64, img_size=64, nz=400, epoch=30
