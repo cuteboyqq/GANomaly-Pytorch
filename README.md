@@ -8,10 +8,10 @@ No Discriminator model
 Here is a sample TOC(*wow! such cool!*) that is actually the TOC for this README. -->
 # Table of Contents
 - [AutoEncoder-Pytorch](#AutoEncoder-Pytorch)
-    - [implement](#Implement)
+    - [Implement](#Implement)
     - [Train on custom dataset](#Train-on-custom-dataset)
-    - [Train-command](#Train-command)
-    - [Test-command](#Test-command)
+    - [Train command](#Train-command)
+    - [Test command](#Test-command)
         - [Example](#Example)
             - [Train factory dataset](#Train-factory-dataset)
             - [Lose value distribution](#Lose-value-distribution)
