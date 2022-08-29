@@ -28,6 +28,8 @@ Here is a sample TOC(*wow! such cool!*) that is actually the TOC for this README
 
 3. Encoder/Decoder : Use paper network, conv--batchnorm--leakyrelu
 
+Below image reference from : https://arxiv.org/abs/1805.06725
+
 ![image](https://user-images.githubusercontent.com/58428559/187036065-f1b7f624-bb0d-4d96-b3c9-6e6d8f74c98a.png)
 
 
