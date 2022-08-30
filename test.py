@@ -22,12 +22,15 @@ def get_args():
     
     parser = argparse.ArgumentParser()
     #'/home/ali/datasets/train_video/NewYork_train/train/images'
-    parser.add_argument('-noramldir','--normal-dir',help='image dir',default=r"/home/ali/YOLOV5/runs/detect/f_384_2min/crops")
-    parser.add_argument('-abnoramldir','--abnormal-dir',help='image dir',default= r"/home/ali/YOLOV5/runs/detect/f_384_2min/defect_aug")
+    parser.add_argument('-noramldir','--normal-dir',help='image dir',default=r"C:\factory_data\2022-08-26\f_384_2min\crops")
+    parser.add_argument('-abnoramldir','--abnormal-dir',help='image dir',default= r"C:\factory_data\2022-08-26\f_384_2min\defeat")
     parser.add_argument('-imgsize','--img-size',type=int,help='image size',default=64)
-    parser.add_argument('-batchsize','--batch-size',type=int,help='train batch size',default=64)
-    parser.add_argument('-savedir','--save-dir',help='save model dir',default="/home/ali/AutoEncoder-Pytorch/runs/train")
-    parser.add_argument('-model','--model',help='model dir',default= "/home/ali/AutoEncoder-Pytorch/runs/train/")
+    parser.add_argument('-nz','--nz',type=int,help='compress size',default=100)
+    parser.add_argument('-nc','--nc',type=int,help='image size',default=3)
+    parser.add_argument('-lr','--lr',type=float,help='learning rate',default=2e-4)
+    parser.add_argument('-batchsize','--batch-size',type=int,help='train batch size',default=1)
+    parser.add_argument('-savedir','--save-dir',help='save model dir',default=r"C:\GitHub_Code\AE\AutoEncoder-Pytorch\runs\train")
+    parser.add_argument('-weights','--weights',help='model dir',default= r"C:\GitHub_Code\AE\AutoEncoder-Pytorch\runs\train")
     parser.add_argument('-viewimg','--view-img',action='store_true',help='view images')
     return parser.parse_args()    
 
@@ -35,22 +38,11 @@ def get_args():
 def main():
     args = get_args()
     
-    test(args.img_size,
-        args.img_size,
-        args.normal_dir,
-        args.abnormal_dir,
-        True, #args.view_img,
-        args.model)
+    test(args)
 
-def test(IMAGE_SIZE_W=32,
-         IMAGE_SIZE_H=32,
-         VAL_DATA_DIR="/home/ali/YOLOV5/runs/detect/f_384_2min/crops",
-         DEFEAT_DATA_DIR="/home/ali/YOLOV5/runs/detect/f_384_2min/defeat",
-         SHOW_IMG=True,
-         modeldir = r"/home/ali/AutoEncoder-Pytorch/runs/train/"
-         ):
+def test(args):
   
-    if SHOW_IMG:
+    if args.view_img:
         BATCH_SIZE_VAL = 20
         SHOW_MAX_NUM = 3
         shuffle = True
@@ -61,17 +53,9 @@ def test(IMAGE_SIZE_W=32,
     # convert data to torch.FloatTensor
    
     
-    test_loader = data_loader(IMAGE_SIZE_H,
-                              IMAGE_SIZE_W,
-                              VAL_DATA_DIR,
-                              BATCH_SIZE_VAL,
-                              shuffle)
+    test_loader = data_loader(shuffle,args.normal_dir,args)
  
-    defeat_loader = data_loader(IMAGE_SIZE_H,
-                                IMAGE_SIZE_W,
-                                DEFEAT_DATA_DIR,
-                                BATCH_SIZE_VAL,
-                                shuffle)
+    defeat_loader = data_loader(shuffle,args.abnormal_dir,args)
     # specify loss function
     criterion = nn.MSELoss()
     show_num = 0
@@ -81,20 +65,20 @@ def test(IMAGE_SIZE_W=32,
     #device = torch.device('cpu')
     #model.eval()
     #model = ConvAutoencoder()
-    model = Ganomaly(modeldir,BATCH_SIZE_VAL)
+    model = Ganomaly(args)
     #model = network.NetG(isize=IMAGE_SIZE_H, nc=3, nz=100, ngf=64, ndf=64, ngpu=1, extralayers=0)
     #model = torch.load(modelPath).to(device)
     #model.load_state_dict(torch.load(modelPath))
-    print('load model weight from {} success'.format(modeldir))
-    print('VAL_DATA_DIR : {}'.format(VAL_DATA_DIR))
+    print('load model weight from {} success'.format(args.weights))
+    print('VAL_DATA_DIR : {}'.format(args.normal_dir))
     
     positive_loss = infer(test_loader,SHOW_MAX_NUM,model,criterion,positive_loss,
-            IMAGE_SIZE_H,IMAGE_SIZE_W,BATCH_SIZE_VAL,SHOW_IMG,'positive',device)
+            'positive',device,args)
     
     defeat_loss = infer(defeat_loader,SHOW_MAX_NUM,model,criterion,defeat_loss,
-            IMAGE_SIZE_H,IMAGE_SIZE_W,BATCH_SIZE_VAL,SHOW_IMG,'defect',device)
+            'defect',device,args)
         
-    if not SHOW_IMG: 
+    if not args.view_img: 
         plot.plot_loss_distribution(SHOW_MAX_NUM,positive_loss,defeat_loss)
 
 class UnNormalize(object):
@@ -130,12 +114,9 @@ def infer(data_loader,
           model,
           criterion,
           loss_list,
-          IMAGE_SIZE_H,
-          IMAGE_SIZE_W,
-          BATCH_SIZE_VAL,
-          SHOW_IMG,
           data_type,
-          device
+          device,
+          args
           ):
     show_num = 0
     dataiter = iter(data_loader)
@@ -157,19 +138,15 @@ def infer(data_loader,
         #fake_img = unorm(fake_img)
         
         images = images.cpu().numpy()
-        fake_img = fake_img.view(BATCH_SIZE_VAL, 3, IMAGE_SIZE_H, IMAGE_SIZE_W)
+        fake_img = fake_img.view(args.batch_size, 3, args.img_size, args.img_size)
         fake_img = fake_img.cpu().detach().numpy()
-        if SHOW_IMG:
+        if args.view_img:
             plot.plot_images(images,fake_img)             
         show_num+=1
     return loss_list
 
-def data_loader(IMAGE_SIZE_H=64,
-                IMAGE_SIZE_W=64,
-                VAL_DATA_DIR=r'C:\factory_data\2022-08-26\f_384_2min\defeat',
-                BATCH_SIZE_VAL=64,
-                shuffle=True):
-    size = (IMAGE_SIZE_H,IMAGE_SIZE_W)
+def data_loader(shuffle,VAL_DATA_DIR,args):
+    size = (args.img_size,args.img_size)
     img_test_data = torchvision.datasets.ImageFolder(VAL_DATA_DIR,
                                                 transform=transforms.Compose([
                                                     transforms.Resize(size),
@@ -184,7 +161,7 @@ def data_loader(IMAGE_SIZE_H=64,
 
     print('img_test_data length : {}'.format(len(img_test_data)))
 
-    test_loader = torch.utils.data.DataLoader(img_test_data, batch_size=BATCH_SIZE_VAL,shuffle=shuffle,drop_last=True)
+    test_loader = torch.utils.data.DataLoader(img_test_data, batch_size=args.batch_size,shuffle=shuffle,drop_last=True)
     print('test_loader length : {}'.format(len(test_loader)))
     
     return test_loader
