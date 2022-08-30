@@ -95,7 +95,7 @@ Orange : abnormal dataset
 
 
 
-# Reference : 
+# Reference 
 [(Back to top)](#table-of-contents)
 
 https://arxiv.org/abs/1805.06725
