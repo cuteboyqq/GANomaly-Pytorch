@@ -112,7 +112,7 @@ def train(IMAGE_SIZE_H = 32,
             outputs = model(images)
             ''' compute loss '''
             #loss = compute_loss(outputs,images,criterion)
-            error_g, error_d, model_g, model_d = outputs
+            error_g, error_d, fake_img, model_g, model_d = outputs
             loss = error_g + error_d
             ''' loss back propagation '''
             #loss.backward()

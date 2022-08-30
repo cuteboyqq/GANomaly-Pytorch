@@ -33,15 +33,15 @@ class Ganomaly(nn.Module):
     
 
     
-    def __init__(self):
+    def __init__(self,model_dir='/home/ali/AutoEncoder-Pytorch/runs/train/',batchsize=64):
         super(Ganomaly, self).__init__()
         
-        self.batchsize = 64
+        self.batchsize = batchsize
         self.isize = 64
         self.lr = 2e-4
         self.beta1 = 0.5
         self.isTrain = True
-        self.resume = ''
+        self.resume = model_dir
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         # -- Misc attributes
         self.epoch = 0
@@ -59,9 +59,11 @@ class Ganomaly(nn.Module):
         ##
         if self.resume != '':
             print("\nLoading pre-trained networks.")
-            self.iter = torch.load(os.path.join(self.opt.resume, 'netG.pth'))['epoch']
-            self.netg.load_state_dict(torch.load(os.path.join(self.opt.resume, 'netG.pth'))['state_dict'])
-            self.netd.load_state_dict(torch.load(os.path.join(self.opt.resume, 'netD.pth'))['state_dict'])
+            #self.iter = torch.load(os.path.join(self.resume, 'netG.pt'))['epoch']
+            #self.netg.load_state_dict(torch.load(os.path.join(self.resume, 'netG.pt'))['state_dict'])
+            #self.netd.load_state_dict(torch.load(os.path.join(self.resume, 'netD.pt'))['state_dict'])
+            self.netg.load_state_dict(torch.load(os.path.join(self.resume, 'netG.pt')))
+            self.netd.load_state_dict(torch.load(os.path.join(self.resume, 'netD.pt')))
             print("\tDone.\n")
 
         self.l_adv = l2_loss
@@ -159,7 +161,7 @@ class Ganomaly(nn.Module):
         self.optimizer_d.step()
         if self.err_d.item() < 1e-5: self.reinit_d()
         
-        return error_g, error_d, self.netg, self.netd #error_d
+        return error_g, error_d, self.fake, self.netg, self.netd #error_d
     '''
     def train_one_epoch(self):
         """ Train the model for one epoch.
