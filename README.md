@@ -30,7 +30,7 @@ Here is a sample TOC(*wow! such cool!*) that is actually the TOC for this README
 
 4. Discriminator (2022/08/30 updated)
 
-![image](https://user-images.githubusercontent.com/58428559/187036065-f1b7f624-bb0d-4d96-b3c9-6e6d8f74c98a.png)
+![image](https://user-images.githubusercontent.com/58428559/187453543-ea807f75-46ba-443f-ae89-a19bb8151f0d.png)
 
 
 
