@@ -1,8 +1,26 @@
 # GANomaly-Pytorch
+[(Back to top)](#table-of-contents)
 
-No Discriminator model 
+Generator +  Discriminator model 
+
+
+# Table of contents
+
+<!-- After you have introduced your project, it is a good idea to add a **Table of contents** or **TOC** as **cool** people say it. This would make it easier for people to navigate through your README and find exactly what they are looking for.
+
+Here is a sample TOC(*wow! such cool!*) that is actually the TOC for this README. -->
+
+- [GANomaly-Pytorch](#GANomaly-Pytorch)
+- [implement](#implement)
+- [Train-on-custom-dataset](#Train-on-custom-dataset)
+- [Train](#Train)
+- [Test](#Test)
+- [Lose-value-distribution](#Lose-value-distribution)
+- [Reference](#Reference)
+   
 
 # implement 
+[(Back to top)](#table-of-contents)
 
 1. Encoder--Decoder--Encoder
 
@@ -16,7 +34,8 @@ No Discriminator model
 
 
 
-# Train on custom dataset
+# Train-on-custom-dataset
+[(Back to top)](#table-of-contents)
 
 ```
 Custom Dataset
@@ -42,11 +61,15 @@ Custom Dataset
 ```
 
 # Train
+[(Back to top)](#table-of-contents)
+
 ```
 python train.py --img-dir "[train dataset dir]" --batch-size 64 --img-size 32 --epoch 20
 ```
 
 # Test
+[(Back to top)](#table-of-contents)
+
 ```
 python test.py --nomal-dir "[test normal dataset dir]" --abnormal-dir "[test abnormal dataset dir]" --view-img --img-size 32
 ```
@@ -60,7 +83,8 @@ dataset :factory line , top: input images, bottom: reconstruct images
 dataset :factory noline , top: input images, bottom: reconstruct images
 ![image](https://user-images.githubusercontent.com/58428559/187036162-52b6fb52-cc6b-44b6-99e5-d532332e9c9a.png)
 
-# Lose value distribution
+# Lose-value-distribution
+[(Back to top)](#table-of-contents)
 
 Blue : normal dataset
 
@@ -72,6 +96,7 @@ Orange : abnormal dataset
 
 
 # Reference : 
+[(Back to top)](#table-of-contents)
 
 https://arxiv.org/abs/1805.06725
 
