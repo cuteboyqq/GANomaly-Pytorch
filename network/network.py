@@ -170,9 +170,9 @@ class NetD(nn.Module):
     DISCRIMINATOR NETWORK
     """
 
-    def __init__(self):
+    def __init__(self,isize=64, nc=3):
         super(NetD, self).__init__()
-        model = Encoder(isize=64, nz=1, nc=3, ndf=64, ngpu=1, n_extra_layers=0)
+        model = Encoder(isize=isize, nz=1, nc=nc, ndf=64, ngpu=1, n_extra_layers=0)
         layers = list(model.main.children())
 
         self.features = nn.Sequential(*layers[:-1])

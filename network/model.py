@@ -30,18 +30,25 @@ class Ganomaly(nn.Module):
 
     @property
     def name(self): return 'Ganomaly'
-    
-
-    
-    def __init__(self,model_dir='/home/ali/AutoEncoder-Pytorch/runs/train/',batchsize=64):
+    '''
+    def __init__(self,model_dir='/home/ali/AutoEncoder-Pytorch/runs/train/',
+                 batchsize=64,
+                 img_size=64,
+                 nz=100,
+                 nc=3):
+    '''
+    def __init__(self,args):
+                 
         super(Ganomaly, self).__init__()
         
-        self.batchsize = batchsize
-        self.isize = 64
+        self.batchsize = args.batch_size
+        self.isize = args.img_size
         self.lr = 2e-4
         self.beta1 = 0.5
         self.isTrain = True
-        self.resume = model_dir
+        self.resume = args.weights
+        self.nz = args.nz
+        self.nc = args.nc
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         # -- Misc attributes
         self.epoch = 0
@@ -51,8 +58,8 @@ class Ganomaly(nn.Module):
 
         ##
         # Create and initialize networks.
-        self.netg = NetG().to(self.device)
-        self.netd = NetD().to(self.device)
+        self.netg = NetG(self.isize,self.nc,self.nz).to(self.device)
+        self.netd = NetD(self.isize,self.nc).to(self.device)
         self.netg.apply(weights_init)
         self.netd.apply(weights_init)
 
