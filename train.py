@@ -19,6 +19,7 @@ from util import loss
 from network.model import Ganomaly
 from tqdm import tqdm
 from util import color
+from util.load_data import load_data, print_parameters
 
 def get_args():
     import argparse
@@ -59,35 +60,9 @@ def train(args):
     train_loader = load_data(args)
     '''load model'''
     model = Ganomaly(args)
-    print(model)
     ''' train epochs'''
     train_epochs(model,train_loader,args)
 
-def print_parameters(args):
-    print('IMAGE_SIZE_H:{}\n IMAGE_SIZE_W:{}\n TRAIN_DATA_DIR:{}\n BATCH_SIZE:{}\n SAVE_MODEL_DIR:{}\n n_epochs:{}\n load weights:{}\n nz:{}\n nc:{}'.format(args.img_size,
-                            args.img_size,
-                            args.img_dir,
-                            args.batch_size,
-                            args.save_dir,
-                            args.epoch,
-                            args.weights,
-                            args.nz,
-                            args.nc))
-def load_data(args):
-    size = (args.img_size,args.img_size)
-    img_data = torchvision.datasets.ImageFolder(args.img_dir,
-                                                transform=transforms.Compose([
-                                                transforms.Resize(size),
-                                                #transforms.RandomHorizontalFlip(),
-                                                #transforms.Scale(64),
-                                                transforms.CenterCrop(size),                                                 
-                                                transforms.ToTensor(),
-                                                transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)) #GANomaly parameter
-                                                ])
-                                                )
-    train_loader = torch.utils.data.DataLoader(img_data, batch_size=args.batch_size,shuffle=True,drop_last=True)
-    print('train_loader length : {}'.format(len(train_loader)))
-    return train_loader
 
 def train_epochs(model,train_loader,args):
     ''' use gpu if available'''
