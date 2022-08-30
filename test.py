@@ -22,7 +22,7 @@ def get_args():
     parser = argparse.ArgumentParser()
     #'/home/ali/datasets/train_video/NewYork_train/train/images'
     parser.add_argument('-noramldir','--normal-dir',help='image dir',default=r"/home/ali/YOLOV5/runs/detect/f_384_2min/crops")
-    parser.add_argument('-abnoramldir','--abnormal-dir',help='image dir',default= r"/home/ali/YOLOV5/runs/detect/f_384_2min/defeat")
+    parser.add_argument('-abnoramldir','--abnormal-dir',help='image dir',default= r"/home/ali/YOLOV5/runs/detect/f_384_2min/defect_aug")
     parser.add_argument('-imgsize','--img-size',type=int,help='image size',default=64)
     parser.add_argument('-batchsize','--batch-size',type=int,help='train batch size',default=64)
     parser.add_argument('-savedir','--save-dir',help='save model dir',default="/home/ali/AutoEncoder-Pytorch/runs/train")
@@ -50,12 +50,12 @@ def test(IMAGE_SIZE_W=32,
          ):
   
     if SHOW_IMG:
-        BATCH_SIZE_VAL = 10
-        SHOW_MAX_NUM = 5
+        BATCH_SIZE_VAL = 3
+        SHOW_MAX_NUM = 3
         shuffle = True
     else:
         BATCH_SIZE_VAL = 1
-        SHOW_MAX_NUM = 2000
+        SHOW_MAX_NUM = 6000
         shuffle = False
     # convert data to torch.FloatTensor
    
@@ -87,10 +87,10 @@ def test(IMAGE_SIZE_W=32,
     print('VAL_DATA_DIR : {}'.format(VAL_DATA_DIR))
     
     positive_loss = infer(test_loader,SHOW_MAX_NUM,model,criterion,positive_loss,
-            IMAGE_SIZE_H,IMAGE_SIZE_W,BATCH_SIZE_VAL,SHOW_IMG,'positive')
+            IMAGE_SIZE_H,IMAGE_SIZE_W,BATCH_SIZE_VAL,SHOW_IMG,'positive',device)
     
     defeat_loss = infer(defeat_loader,SHOW_MAX_NUM,model,criterion,defeat_loss,
-            IMAGE_SIZE_H,IMAGE_SIZE_W,BATCH_SIZE_VAL,SHOW_IMG,'defect')
+            IMAGE_SIZE_H,IMAGE_SIZE_W,BATCH_SIZE_VAL,SHOW_IMG,'defect',device)
         
     if not SHOW_IMG: 
         plot.plot_loss_distribution(SHOW_MAX_NUM,positive_loss,defeat_loss)
@@ -132,7 +132,8 @@ def infer(data_loader,
           IMAGE_SIZE_W,
           BATCH_SIZE_VAL,
           SHOW_IMG,
-          data_type
+          data_type,
+          device
           ):
     show_num = 0
     dataiter = iter(data_loader)

@@ -8,12 +8,27 @@ Created on Sat Aug 27 13:43:52 2022
 import torch.nn as nn
 
 
+##
+def weights_init(mod):
+    """
+    Custom weights initialization called on netG, netD and netE
+    :param m:
+    :return:
+    """
+    classname = mod.__class__.__name__
+    if classname.find('Conv') != -1:
+        mod.weight.data.normal_(0.0, 0.02)
+    elif classname.find('BatchNorm') != -1:
+        mod.weight.data.normal_(1.0, 0.02)
+        mod.bias.data.fill_(0)
+
+
 class Encoder(nn.Module):
     """
     DCGAN ENCODER NETWORK
     """
 
-    def __init__(self, isize, nz, nc, ndf, ngpu, n_extra_layers=0, add_final_conv=True):
+    def __init__(self, isize=64, nz=100, nc=3, ndf=64, ngpu=1, n_extra_layers=0, add_final_conv=True):
         super(Encoder, self).__init__()
         self.ngpu = ngpu
         assert isize % 16 == 0, "isize has to be a multiple of 16"
@@ -67,7 +82,7 @@ class Decoder(nn.Module):
     """
     DCGAN DECODER NETWORK
     """
-    def __init__(self, isize, nz, nc, ngf, ngpu, n_extra_layers=0):
+    def __init__(self, isize=64, nz=100, nc=3, ngf=64, ngpu=1, n_extra_layers=0):
         super(Decoder, self).__init__()
         self.ngpu = ngpu
         assert isize % 16 == 0, "isize has to be a multiple of 16"
@@ -130,7 +145,7 @@ class NetG(nn.Module):
     self.parser.add_argument('--ngf', type=int, default=64)
     self.parser.add_argument('--ndf', type=int, default=64)
     '''
-    def __init__(self, isize=32, nc=3, nz=100, ngf=64, ndf=64, ngpu=1, extralayers=0):
+    def __init__(self, isize=64, nc=3, nz=100, ngf=64, ndf=64, ngpu=1, extralayers=0):
         super(NetG, self).__init__()
         self.isize = isize
         self.nc = nc
@@ -148,3 +163,26 @@ class NetG(nn.Module):
         gen_imag = self.decoder(latent_i)
         latent_o = self.encoder2(gen_imag)
         return gen_imag, latent_i, latent_o
+    
+    
+class NetD(nn.Module):
+    """
+    DISCRIMINATOR NETWORK
+    """
+
+    def __init__(self):
+        super(NetD, self).__init__()
+        model = Encoder(isize=64, nz=1, nc=3, ndf=64, ngpu=1, n_extra_layers=0)
+        layers = list(model.main.children())
+
+        self.features = nn.Sequential(*layers[:-1])
+        self.classifier = nn.Sequential(layers[-1])
+        self.classifier.add_module('Sigmoid', nn.Sigmoid())
+
+    def forward(self, x):
+        features = self.features(x)
+        features = features
+        classifier = self.classifier(features)
+        classifier = classifier.view(-1, 1).squeeze(1)
+
+        return classifier, features

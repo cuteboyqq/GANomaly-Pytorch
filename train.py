@@ -16,6 +16,9 @@ import torchvision.transforms as transforms
 import torchvision
 import torch.nn as nn
 from util import loss
+from network.model import Ganomaly
+from tqdm import tqdm
+from util import color
 
 def get_args():
     import argparse
@@ -28,6 +31,18 @@ def get_args():
     parser.add_argument('-savedir','--save-dir',help='save model dir',default="/home/ali/AutoEncoder-Pytorch/runs/train")
     parser.add_argument('-epoch','--epoch',type=int,help='num of epochs',default=30)
     return parser.parse_args()    
+
+
+def set_input(input:torch.Tensor):
+    """ Set input and ground truth
+    Args:
+        input (FloatTensor): Input data for batch i.
+    """
+    input = input.clone()
+    with torch.no_grad():
+        input.resize_(input[0].size()).copy_(input[0])
+       
+    return input
 
 
 def main():
@@ -58,12 +73,13 @@ def train(IMAGE_SIZE_H = 32,
                                                 transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)) #GANomaly parameter
                                                 ])
                                                 )
-    train_loader = torch.utils.data.DataLoader(img_data, batch_size=BATCH_SIZE,shuffle=True,drop_last=False)
+    train_loader = torch.utils.data.DataLoader(img_data, batch_size=BATCH_SIZE,shuffle=True,drop_last=True)
     print('train_loader length : {}'.format(len(train_loader)))
     ''' use gpu if available'''
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     '''load model'''
-    model = network.NetG(isize=IMAGE_SIZE_H, nc=3, nz=400, ngf=64, ndf=64, ngpu=1, extralayers=0).to(device)
+    #model = network.NetG(isize=IMAGE_SIZE_H, nc=3, nz=400, ngf=64, ndf=64, ngpu=1, extralayers=0).to(device)
+    model = Ganomaly()
     print(model)
     print('IMAGE_SIZE_H:{}\n IMAGE_SIZE_W:{}\n TRAIN_DATA_DIR:{}\n BATCH_SIZE:{}\n SAVE_MODEL_DIR:{}\n n_epochs:{}\n'.format(IMAGE_SIZE_H,
                                                                                                                              IMAGE_SIZE_W,
@@ -74,39 +90,57 @@ def train(IMAGE_SIZE_H = 32,
     ''' set loss function '''
     criterion = nn.MSELoss()
     ''' set optimizer function '''
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
-    _lowest_loss = 100.0
+    #optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+    _lowest_loss = 600.0
     
     if not os.path.exists(SAVE_MODEL_DIR):
         os.makedirs(SAVE_MODEL_DIR)
         
     SAVE_MODEL_PATH = os.path.join(SAVE_MODEL_DIR,"AE_3_best_2.pt")
+    SAVE_MODEL_G_PATH = os.path.join(SAVE_MODEL_DIR,"AE_G.pt")
+    SAVE_MODEL_D_PATH = os.path.join(SAVE_MODEL_DIR,"AE_D.pt")
+    
     for epoch in range(1, n_epochs+1):
-        train_loss = 0.0   
-        for images, _  in train_loader: 
+        train_loss = 0.0
+        pbar = tqdm(train_loader)
+        for images, _  in pbar: 
             images = images.to(device)
+            #images = set_input(images)
             '''initial optimizer'''
-            optimizer.zero_grad()
+            #optimizer.zero_grad()
             '''inference'''
             outputs = model(images)
             ''' compute loss '''
-            loss = compute_loss(outputs,images,criterion)
+            #loss = compute_loss(outputs,images,criterion)
+            error_g, error_d, model_g, model_d = outputs
+            loss = error_g + error_d
             ''' loss back propagation '''
-            loss.backward()
+            #loss.backward()
             ''' optimize weight & bias '''
-            optimizer.step()
+            #optimizer.step()
+            
+            bar_str = ' epoch:{} loss:{} error_g:{} error_d:{}'.format(epoch,loss,error_g,error_d)
+            PREFIX = color.colorstr(bar_str)
+            pbar.desc = f'{PREFIX}'
             ''' sum loss '''
             train_loss += loss.item()*images.size(0)
-    
+            
+            
+            
         train_loss = train_loss/len(train_loader)
         print('Epoch: {} \tTraining Loss: {:.6f}'.format(epoch, train_loss))
+        
+        
+        
         
         if train_loss < _lowest_loss:
             _lowest_loss = train_loss
             print('Start save model !')
-            torch.save(model.state_dict(), SAVE_MODEL_PATH)
+            torch.save(model_g.state_dict(), SAVE_MODEL_G_PATH)
+            torch.save(model_d.state_dict(), SAVE_MODEL_D_PATH)
             print('save model weights complete with loss : %.3f' %(train_loss))
-            
+
+
 def compute_loss(outputs,images,criterion):
     gen_imag, latent_i, latent_o = outputs
     loss_con = loss.l2_loss(images, gen_imag)

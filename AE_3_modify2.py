@@ -23,8 +23,8 @@ n_epochs = 15
 TEST = True
 SHOW_IMG = True
 if SHOW_IMG:
-    BATCH_SIZE_VAL = 1
-    SHOW_MAX_NUM = 10
+    BATCH_SIZE_VAL = 20
+    SHOW_MAX_NUM = 3
     shuffle = True
 else:
     BATCH_SIZE_VAL = 1
