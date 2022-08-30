@@ -1,4 +1,4 @@
-# AutoEncoder-Pytorch
+# GANomaly-Pytorch
 
 No Discriminator model 
 
@@ -9,6 +9,8 @@ No Discriminator model
 2. loss function
 
 3. Encoder/Decoder : Use paper network, conv--batchnorm--leakyrelu
+
+4. Discriminator (2022/08/30 updated)
 
 ![image](https://user-images.githubusercontent.com/58428559/187036065-f1b7f624-bb0d-4d96-b3c9-6e6d8f74c98a.png)
 
