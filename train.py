@@ -21,33 +21,6 @@ from tqdm import tqdm
 from util import color
 from util.load_data import load_data, print_parameters
 
-def get_args():
-    import argparse
-    #isize=64, nz=100, nc=3
-    parser = argparse.ArgumentParser()
-    #'/home/ali/datasets/train_video/NewYork_train/train/images'
-    parser.add_argument('-imgdir','--img-dir',help='image dir',default=r"C:\factory_data\2022-08-26\f_384_2min\crops")
-    parser.add_argument('-imgsize','--img-size',type=int,help='image size',default=64)
-    parser.add_argument('-nz','--nz',type=int,help='compress length',default=100)
-    parser.add_argument('-nc','--nc',type=int,help='num of channel',default=3)
-    parser.add_argument('-lr','--lr',type=float,help='learning rate',default=2e-4)
-    parser.add_argument('-batchsize','--batch-size',type=int,help='train batch size',default=64)
-    parser.add_argument('-savedir','--save-dir',help='save model dir',default=r"C:\GitHub_Code\AE\AutoEncoder-Pytorch\runs\train")
-    parser.add_argument('-weights','--weights',help='save model dir',default=r'C:\GitHub_Code\AE\AutoEncoder-Pytorch\runs\train')
-    parser.add_argument('-epoch','--epoch',type=int,help='num of epochs',default=30)
-    return parser.parse_args()    
-
-
-def set_input(input:torch.Tensor):
-    """ Set input and ground truth
-    Args:
-        input (FloatTensor): Input data for batch i.
-    """
-    input = input.clone()
-    with torch.no_grad():
-        input.resize_(input[0].size()).copy_(input[0])
-       
-    return input
 
 
 def main():
@@ -121,6 +94,35 @@ def compute_loss(outputs,images,criterion):
     loss_enc = loss.l1_loss(latent_i, latent_o)
     loss_sum = loss_enc + 50*loss_con
     return loss_sum
-    
+
+
+def set_input(input:torch.Tensor):
+    """ Set input and ground truth
+    Args:
+        input (FloatTensor): Input data for batch i.
+    """
+    input = input.clone()
+    with torch.no_grad():
+        input.resize_(input[0].size()).copy_(input[0])
+       
+    return input
+
+
+def get_args():
+    import argparse
+    #isize=64, nz=100, nc=3
+    parser = argparse.ArgumentParser()
+    #'/home/ali/datasets/train_video/NewYork_train/train/images'
+    parser.add_argument('-imgdir','--img-dir',help='image dir',default=r"C:\factory_data\2022-08-26\f_384_2min\crops")
+    parser.add_argument('-imgsize','--img-size',type=int,help='image size',default=64)
+    parser.add_argument('-nz','--nz',type=int,help='compress length',default=100)
+    parser.add_argument('-nc','--nc',type=int,help='num of channel',default=3)
+    parser.add_argument('-lr','--lr',type=float,help='learning rate',default=2e-4)
+    parser.add_argument('-batchsize','--batch-size',type=int,help='train batch size',default=64)
+    parser.add_argument('-savedir','--save-dir',help='save model dir',default=r"C:\GitHub_Code\AE\AutoEncoder-Pytorch\runs\train")
+    parser.add_argument('-weights','--weights',help='save model dir',default=r'C:\GitHub_Code\AE\AutoEncoder-Pytorch\runs\train')
+    parser.add_argument('-epoch','--epoch',type=int,help='num of epochs',default=30)
+    return parser.parse_args()    
+
 if __name__=="__main__":
     main()
