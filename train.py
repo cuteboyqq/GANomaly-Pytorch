@@ -103,13 +103,14 @@ def get_args():
     #'/home/ali/datasets/train_video/NewYork_train/train/images'
     parser.add_argument('-imgdir','--img-dir',help='image dir',default=r"/home/ali/YOLOV5/runs/detect/f_384_2min/crops")
     parser.add_argument('-imgsize','--img-size',type=int,help='image size',default=64)
-    parser.add_argument('-nz','--nz',type=int,help='compress length',default=100)
+    parser.add_argument('-nz','--nz',type=int,help='compress length',default=200)
     parser.add_argument('-nc','--nc',type=int,help='num of channel',default=3)
     parser.add_argument('-lr','--lr',type=float,help='learning rate',default=2e-4)
     parser.add_argument('-batchsize','--batch-size',type=int,help='train batch size',default=64)
     parser.add_argument('-savedir','--save-dir',help='save model dir',default=r"/home/ali/AutoEncoder-Pytorch/runs/train")
     parser.add_argument('-weights','--weights',help='save model dir',default='')
     parser.add_argument('-epoch','--epoch',type=int,help='num of epochs',default=30)
+    parser.add_argument('-train','--train',type=bool,help='train model',default=True)
     return parser.parse_args()    
 
 if __name__=="__main__":
