@@ -25,8 +25,6 @@ def plot_images(images,outputs):
             
             #unorm = UnNormalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5))
             #unorm(img)
-            
-            
             img = img[:,:,::-1].transpose((2,1,0))
             #print(np.shape(img))
             #print(np.shape(np.squeeze(img)))

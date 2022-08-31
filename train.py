@@ -40,10 +40,7 @@ def train(args):
 def train_epochs(model,train_loader,args):
     ''' use gpu if available'''
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    ''' set loss function '''
-    criterion = nn.MSELoss()
-    ''' set optimizer function '''
-    #optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+
     _lowest_loss = 600.0
     
     if not os.path.exists(args.save_dir):
@@ -58,20 +55,11 @@ def train_epochs(model,train_loader,args):
         pbar = tqdm(train_loader)
         for images, _  in pbar: 
             images = images.to(device)
-            #images = set_input(images)
-            '''initial optimizer'''
-            #optimizer.zero_grad()
             '''inference'''
             outputs = model(images)
-            ''' compute loss '''
-            #loss = compute_loss(outputs,images,criterion)
             error_g, error_d, fake_img, model_g, model_d = outputs
             loss = error_g + error_d
-            ''' loss back propagation '''
-            #loss.backward()
-            ''' optimize weight & bias '''
-            #optimizer.step()
-            
+         
             bar_str = ' epoch:{} loss:{} error_g:{} error_d:{}'.format(epoch,loss,error_g,error_d)
             PREFIX = color.colorstr(bar_str)
             pbar.desc = f'{PREFIX}'
@@ -113,14 +101,14 @@ def get_args():
     #isize=64, nz=100, nc=3
     parser = argparse.ArgumentParser()
     #'/home/ali/datasets/train_video/NewYork_train/train/images'
-    parser.add_argument('-imgdir','--img-dir',help='image dir',default=r"C:\factory_data\2022-08-26\f_384_2min\crops")
+    parser.add_argument('-imgdir','--img-dir',help='image dir',default=r"/home/ali/YOLOV5/runs/detect/f_384_2min/crops")
     parser.add_argument('-imgsize','--img-size',type=int,help='image size',default=64)
     parser.add_argument('-nz','--nz',type=int,help='compress length',default=100)
     parser.add_argument('-nc','--nc',type=int,help='num of channel',default=3)
     parser.add_argument('-lr','--lr',type=float,help='learning rate',default=2e-4)
     parser.add_argument('-batchsize','--batch-size',type=int,help='train batch size',default=64)
-    parser.add_argument('-savedir','--save-dir',help='save model dir',default=r"C:\GitHub_Code\AE\AutoEncoder-Pytorch\runs\train")
-    parser.add_argument('-weights','--weights',help='save model dir',default=r'C:\GitHub_Code\AE\AutoEncoder-Pytorch\runs\train')
+    parser.add_argument('-savedir','--save-dir',help='save model dir',default=r"/home/ali/AutoEncoder-Pytorch/runs/train")
+    parser.add_argument('-weights','--weights',help='save model dir',default='')
     parser.add_argument('-epoch','--epoch',type=int,help='num of epochs',default=30)
     return parser.parse_args()    
 

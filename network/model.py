@@ -30,22 +30,16 @@ class Ganomaly(nn.Module):
 
     @property
     def name(self): return 'Ganomaly'
-    '''
-    def __init__(self,model_dir='/home/ali/AutoEncoder-Pytorch/runs/train/',
-                 batchsize=64,
-                 img_size=64,
-                 nz=100,
-                 nc=3):
-    '''
+   
     def __init__(self,args):
                  
         super(Ganomaly, self).__init__()
         
         self.batchsize = args.batch_size
         self.isize = args.img_size
-        self.lr = 2e-4
+        self.lr = args.lr
         self.beta1 = 0.5
-        self.isTrain = True
+        self.isTrain = args.train
         self.resume = args.weights
         self.nz = args.nz
         self.nc = args.nc
@@ -91,8 +85,8 @@ class Ganomaly(nn.Module):
         if self.isTrain:
             self.netg.train()
             self.netd.train()
-            self.optimizer_d = optim.Adam(self.netd.parameters(), lr=self.lr, betas=(self.beta1, 0.999))
-            self.optimizer_g = optim.Adam(self.netg.parameters(), lr=self.lr, betas=(self.beta1, 0.999))
+        self.optimizer_d = optim.Adam(self.netd.parameters(), lr=self.lr, betas=(self.beta1, 0.999))
+        self.optimizer_g = optim.Adam(self.netg.parameters(), lr=self.lr, betas=(self.beta1, 0.999))
 
     ##
     def forward_g(self,x):
@@ -144,80 +138,29 @@ class Ganomaly(nn.Module):
         """
         self.netd.apply(weights_init)
         print('   Reloading net d')
-        
-        
-    
-    
-    
+    ##
     def forward(self,x):
         """ Forwardpass, Loss Computation and Backwardpass.
         """
         # Forward-pass
         self.forward_g(x)
         self.forward_d(x)
-
+        
         # Backward-pass
         # netg
+        #if self.isTrain:
         self.optimizer_g.zero_grad()
         error_g = self.backward_g(x)
-        self.optimizer_g.step()
+        if self.isTrain:
+            self.optimizer_g.step()
 
         # netd
+        #if self.isTrain:
         self.optimizer_d.zero_grad()
         error_d = self.backward_d()
-        self.optimizer_d.step()
-        if self.err_d.item() < 1e-5: self.reinit_d()
+        if self.isTrain:
+            self.optimizer_d.step()
+        #if self.err_d.item() < 1e-5: self.reinit_d()
         
         return error_g, error_d, self.fake, self.netg, self.netd #error_d
-    '''
-    def train_one_epoch(self):
-        """ Train the model for one epoch.
-        """
-
-        self.netg.train()
-        epoch_iter = 0
-        for data in tqdm(self.dataloader['train'], leave=False, total=len(self.dataloader['train'])):
-            self.total_steps += self.opt.batchsize
-            epoch_iter += self.opt.batchsize
-
-            self.set_input(data)
-            # self.optimize()
-            self.optimize_params()
-
-            if self.total_steps % self.opt.print_freq == 0:
-                errors = self.get_errors()
-                if self.opt.display:
-                    counter_ratio = float(epoch_iter) / len(self.dataloader['train'].dataset)
-                    self.visualizer.plot_current_errors(self.epoch, counter_ratio, errors)
-
-            if self.total_steps % self.opt.save_image_freq == 0:
-                reals, fakes, fixed = self.get_current_images()
-                self.visualizer.save_current_images(self.epoch, reals, fakes, fixed)
-                if self.opt.display:
-                    self.visualizer.display_current_images(reals, fakes, fixed)
-
-        print(">> Training model %s. Epoch %d/%d" % (self.name, self.epoch+1, self.opt.niter))
-        # self.visualizer.print_current_errors(self.epoch, errors)
-
-    ##
-    def train(self):
-        """ Train the model
-        """
-
-        ##
-        # TRAIN
-        self.total_steps = 0
-        best_auc = 0
-
-        # Train for niter epochs.
-        print(">> Training model %s." % self.name)
-        for self.epoch in range(self.opt.iter, self.opt.niter):
-            # Train for one epoch
-            self.train_one_epoch()
-            res = self.test()
-            if res[self.opt.metric] > best_auc:
-                best_auc = res[self.opt.metric]
-                self.save_weights(self.epoch)
-            self.visualizer.print_current_performance(res, best_auc)
-        print(">> Training model %s.[Done]" % self.name)
-        '''
+  

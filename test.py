@@ -22,16 +22,17 @@ def get_args():
     
     parser = argparse.ArgumentParser()
     #'/home/ali/datasets/train_video/NewYork_train/train/images'
-    parser.add_argument('-noramldir','--normal-dir',help='image dir',default=r"C:\factory_data\2022-08-26\f_384_2min\crops")
-    parser.add_argument('-abnoramldir','--abnormal-dir',help='image dir',default= r"C:\factory_data\2022-08-26\f_384_2min\defeat")
+    parser.add_argument('-noramldir','--normal-dir',help='image dir',default=r"/home/ali/YOLOV5/runs/detect/f_384_2min/crops")
+    parser.add_argument('-abnoramldir','--abnormal-dir',help='image dir',default= r"/home/ali/YOLOV5/runs/detect/f_384_2min/defect_aug")
     parser.add_argument('-imgsize','--img-size',type=int,help='image size',default=64)
     parser.add_argument('-nz','--nz',type=int,help='compress size',default=100)
-    parser.add_argument('-nc','--nc',type=int,help='image size',default=3)
+    parser.add_argument('-nc','--nc',type=int,help='num of channels',default=3)
     parser.add_argument('-lr','--lr',type=float,help='learning rate',default=2e-4)
     parser.add_argument('-batchsize','--batch-size',type=int,help='train batch size',default=1)
-    parser.add_argument('-savedir','--save-dir',help='save model dir',default=r"C:\GitHub_Code\AE\AutoEncoder-Pytorch\runs\train")
-    parser.add_argument('-weights','--weights',help='model dir',default= r"C:\GitHub_Code\AE\AutoEncoder-Pytorch\runs\train")
+    parser.add_argument('-savedir','--save-dir',help='save model dir',default=r"/home/ali/AutoEncoder-Pytorch/runs/train")
+    parser.add_argument('-weights','--weights',help='model dir',default= r"/home/ali/AutoEncoder-Pytorch/runs/train")
     parser.add_argument('-viewimg','--view-img',action='store_true',help='view images')
+    parser.add_argument('-train','--train',action='store_true',help='view images')
     return parser.parse_args()    
 
 
@@ -41,14 +42,14 @@ def main():
     test(args)
 
 def test(args):
-  
+    args.view_img = False
     if args.view_img:
         BATCH_SIZE_VAL = 20
         SHOW_MAX_NUM = 3
         shuffle = True
     else:
         BATCH_SIZE_VAL = 1
-        SHOW_MAX_NUM = 2000
+        SHOW_MAX_NUM = 6000
         shuffle = False
     # convert data to torch.FloatTensor
    
@@ -107,7 +108,12 @@ def compute_loss(outputs,images,criterion):
     return loss_sum
 
 
-
+def renormalize(tensor):
+        minFrom= tensor.min()
+        maxFrom= tensor.max()
+        minTo = 0
+        maxTo=1
+        return minTo + (maxTo - minTo) * ((tensor - minFrom) / (maxFrom - minFrom))
 
 def infer(data_loader,
           SHOW_MAX_NUM,
@@ -119,6 +125,9 @@ def infer(data_loader,
           args
           ):
     show_num = 0
+    model.eval()
+    #with torch.no_grad():
+    
     dataiter = iter(data_loader)
     while(show_num < SHOW_MAX_NUM):
         images, labels = dataiter.next()
@@ -128,20 +137,27 @@ def infer(data_loader,
         outputs = model(images)
         #gen_imag, latent_i, latent_o = outputs
         error_g, error_d, fake_img, model_g, model_d = outputs
-        loss = error_g + error_d
+        loss = error_g
         #loss = compute_loss(outputs,images,criterion)
         loss_list.append(loss.cpu().detach().numpy())
         print('loss : {}'.format(loss))
         
         #unorm = UnNormalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5))
         #images = unorm(images)
-        #fake_img = unorm(fake_img)
+        #fake_img = unorm(fake_img.data)
+        images = renormalize(images)
+        fake_img = renormalize(fake_img)
         
+        
+        
+        #images = images.view(args.batch_size, 3, args.img_size, args.img_size)
         images = images.cpu().numpy()
         fake_img = fake_img.view(args.batch_size, 3, args.img_size, args.img_size)
         fake_img = fake_img.cpu().detach().numpy()
+        
+       
         if args.view_img:
-            plot.plot_images(images,fake_img)             
+            plot.plot_images(images,fake_img)      
         show_num+=1
     return loss_list
 
