@@ -88,12 +88,7 @@ dataset :factory noline , top: input images, bottom: reconstruct images
 Blue : normal dataset
 
 Orange : abnormal dataset
-
-![image](https://user-images.githubusercontent.com/58428559/187598159-e2dcd3d4-e7e3-4c5c-8869-88f968a477bb.png)
-
-
-
-
+![image](https://user-images.githubusercontent.com/58428559/187598474-7d529f1f-4687-4998-8429-466f1b1b9f8e.png)
 
 # Reference 
 [(Back to top)](#table-of-contents)
