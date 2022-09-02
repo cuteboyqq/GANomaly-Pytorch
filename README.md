@@ -11,6 +11,7 @@ Generator +  Discriminator model
 Here is a sample TOC(*wow! such cool!*) that is actually the TOC for this README. -->
 
 - [GANomaly-Pytorch](#GANomaly-Pytorch)
+- [Requirement](#Requirement)
 - [implement](#implement)
 - [Train-on-custom-dataset](#Train-on-custom-dataset)
 - [Train](#Train)
@@ -18,6 +19,10 @@ Here is a sample TOC(*wow! such cool!*) that is actually the TOC for this README
 - [Lose-value-distribution](#Lose-value-distribution)
 - [Reference](#Reference)
    
+### Requirement
+```
+pip install -r requirements.txt
+```
 
 ### implement 
 [(Back to top)](#table-of-contents)
