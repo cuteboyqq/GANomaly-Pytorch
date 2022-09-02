@@ -67,14 +67,11 @@ Custom Dataset
 
 ### Train
 [(Back to top)](#table-of-contents)
-
 ```
 python train.py --img-dir "[train dataset dir]" --batch-size 64 --img-size 32 --epoch 20
 ```
-
 ### Test
 [(Back to top)](#table-of-contents)
-
 ```
 python test.py --nomal-dir "[test normal dataset dir]" --abnormal-dir "[test abnormal dataset dir]" --view-img --img-size 32
 ```
